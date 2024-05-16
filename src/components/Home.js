@@ -36,26 +36,34 @@ const Home = () => {
       </div>
       <div className='flex mt-16 lg:ml-auto mr-24  items-center flex-col bg-white rounded-lg lg:w-[50%] h-[200px]  '>
         <span className='mt-2 mr-30 justify-center'>Online Application Process</span>
-        <div className='flex  mt-10 mr-auto ml-5 space-x-20 w-14'>
+        <div className='flex  mt-3 mr-auto ml-5 space-x-20 w-16'>
           <img className='ml-1 ' src={SvgImg} alt='' />
           <div  className='flex flex-col  -mb-2 items-center'>
-            <h3  className='-ml-28 mt-3'>Step1</h3>
-            <span className='-ml-16  text-xs '>create an Account</span>
-            <span className=' text-xs'>Log in</span>
+            <h3  className='-ml-40 mt-8'>Step1</h3>
+            <span className='-ml-16  text-xs w-32'>create an Account
+            <br/>
+            login
+            </span>
           </div>
          
           <img src={SvgImge} alt='' />
-          <div  className='flex flex-col  -mb-2 items-center'>
-            <h3  className='-ml-6 mt-3'>Step1</h3>
-            <span className='text-xs '>create an Account</span>
-            <span className='text-xs'>Log in</span>
+          <div  className='flex flex-col  -mb-2 px-4'>
+            <h3  className='-ml-24  mt-8'>Step2</h3>
+            <span className='-ml-24 w-36  text-xs '>create an Application Form
+            <br/>
+            Complete Application
+            </span>
           </div>
-          <img src={SvgImg3} alt='' />
-          <div  className='flex flex-col  -mb-2 items-center'>
-            <h3  className='-ml-6 mt-3'>Step1</h3>
-            <span className='text-xs '>create an Account</span>
-            <span className='text-xs'>Log in</span>
+
+          <img src={SvgImg3}  alt='' />
+          <div  className='flex flex-col  -mb-2 '>
+            <h3  className='-ml-24 mt-3'>Step3</h3>
+            <span className='-ml-16  text-xs '>Submit Your Application
+            <br/>
+check application status            </span>
           </div>
+
+
         </div>
       </div>
     </div>

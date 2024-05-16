@@ -4,6 +4,8 @@ import Home from './components/Home';
 import Contact from './components/Contact';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import Welcome from './components/Welcome';
 
 function App() {
   return (
@@ -15,6 +17,11 @@ function App() {
   <Route path='/Home' element={<Home/>}/>
   <Route path='/About' element={<About/>}/>
   <Route path='/Contact' element={<Contact />}/>
+  <Route path='/Login' element={<Login />}/>
+  <Route path='/Welcome' element={<Welcome />}/>
+
+
+
 
 </Routes>
 
