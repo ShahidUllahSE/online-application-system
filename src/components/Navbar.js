@@ -23,9 +23,9 @@ const Navbar = () => {
       </div>
       <div className="w-1/3 ml-auto flex justify-center">
         <ul className="flex space-x-4 md:space-x-12 lg:space-x-32  mr-4 md:mr-0">
-          <Link to='/Home' className="text-white font-bold hover:border-b-4 hover:border-[#329987] "> Home</Link>
-          <Link to='/About' className="text-white font-bold hover:border-b-4 hover:border-[#329987]"> About Us</Link>
-          <Link to='/Contact' className="text-white font-bold hover:border-b-4  hover:border-[#329987]"> Contact Us</Link>
+          <Link to='/Home' className="text-white font-medium hover:border-b-2 hover:border-[#329987] "> Home</Link>
+          <Link to='/About' className="text-white font-medium hover:border-b-2 hover:border-[#329987]"> About Us</Link>
+          <Link to='/Contact' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Contact Us</Link>
 
         </ul>
       </div>
