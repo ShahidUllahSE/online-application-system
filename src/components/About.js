@@ -1,7 +1,7 @@
 import React from "react";
 import abtimg from "../assest/abtimg.png";
 import icontick from "../assest/iconstick.png";
-import { VscCheck } from "react-icons/vsc";
+// import { VscCheck } from "react-icons/vsc";
 
 const About = () => {
   return (
@@ -29,15 +29,23 @@ const About = () => {
           <img src={abtimg} alt="" />
         </div>
       </div>
-      <div className="flex justify-center w-[380px] h-[100px] bg-white -mt-28 -ml-10">
-        <h1 className="text-black ml-5 mt-1 font-size-[24px] font-[Gudea] ">What We Do</h1>
-        <h2>
-          <img src={icontick} alt="" />
-        </h2>
-        <tr>
-          <td><VscCheck /> applications</td>
-          
-          </tr>
+
+
+
+      <div className="flex flex-col w-[380px] h-[100px]  rounded-xl bg-white -mt-28 ">
+        <h1 className="text-black items-center mx-32  font-bold font-[Gudea] ">What We Do</h1>
+        <div className=" inline-flex mx-2 text-sm space-x-2">
+        <img src={icontick} alt="" />
+        <span> Transforming Application System</span>
+        </div>
+        <div className=" inline-flex mx-2 text-sm space-x-2">
+        <img src={icontick} alt="" />
+        <span> Providing Time Efficiency</span>
+        </div>
+        <div className=" inline-flex mx-2 text-sm space-x-2">
+        <img src={icontick} alt="" />
+        <span> And Many More...</span>
+        </div>
         
 
         </div>
