@@ -6,6 +6,8 @@ import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Welcome from './components/Welcome';
+import OnlineApplication from './components/OnlineApplication';
+import Application2 from './components/Application2';
 
 function App() {
   return (
@@ -18,7 +20,11 @@ function App() {
   <Route path='/About' element={<About/>}/>
   <Route path='/Contact' element={<Contact />}/>
   <Route path='/Login' element={<Login />}/>
-  <Route path='/Welcome' element={<Welcome />}/>
+  {/* <Route path='/Welcome' element={<Welcome />}/>
+  <Route path='/Application' element={<OnlineApplication />}/> */}
+
+<Route path='/Application2' element={<Application2 />}/> 
+
 
 
 

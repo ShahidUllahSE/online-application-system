@@ -1,10 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
 
-const Welcome = () => {
+const Application2 = () => {
   return (
-    <div className=" h-screen -mt-4 bg-[#1F4887]">
-      <div className="">
+  <div className=" h-screen mt-3 bg-[#1F4887]">
+      <div className="h-auto">
         <button
           data-drawer-target="default-sidebar"
           data-drawer-toggle="default-sidebar"
@@ -111,19 +110,99 @@ const Welcome = () => {
             </ul>
           </div>
         </aside>
-          <div className="text-white  text-3xl font-bold font-serif text-center mt-4">
-            <h1 className="pt-20 ml-36">Welcome to SOARS</h1>
-          </div>
-          <div className="text-white font-sans text-xl ml-[560px] pt-8">
-            <p>Start new application by clicking 
-                <br/>
-                <span>CREATE NEW APPLICATION </span>
-                </p>
-          </div>
-          <div className="ml-[550px] mt-32">
+        
+        <div className="flex justify-center -mt-4 pt-16 items-center h-auto bg-[#1F4887]">
+          <form className="bg-white ml-52 h-[500px]  w-[650px] p-8 rounded-lg -mt-8  shadow-md">
+        <h1 className='text-3xl font-bold font-serif pb-4 ml-16'>Online Application Form</h1>
+            <div className="">
+              <label htmlFor="name" className="block  text-gray-700 text-sm font-bold mb-2">
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                className="w-60  border rounded-lg bg-gray-300 p-2"
+                placeholder="Enter your name"
+              />
+            </div>
 
-  <button className="text-white w-80  mr-8 text-lg bg-[#329987] p-2 rounded-xl font-semibold">Create New Application</button>
-          </div>
+            <div className="">
+              <label htmlFor="reg" className="block  text-gray-700 text-sm font-bold mb-2">
+                Registration No.
+              </label>
+              <input
+                type="text"
+                id="name"
+                className="w-60  border rounded-lg bg-gray-300 p-2"
+                placeholder="Enter your Registration Number"
+              />
+            </div>
+            
+            <div className="mb-4 mt-4">
+              <label htmlFor="options" className="block text-gray-700 text-sm font-bold mb-2">
+                Application Type
+              </label>
+              <select id="options" placeholder='Choose Application Type' className="w-60 border bg-gray-300  rounded-lg p-2">
+                <option value="option1">Choose Application Type</option>
+                <option value="option2">Freezing Semester</option>
+                <option value="option3">Admission Cancellation</option>
+                <option value="option3">Rearrangement Of Mid Exam </option>
+                <option value="option3">Active Enrollment </option>
+
+                <option value="option3">Course Completion Certificate   </option>
+                <option value="option3">Change Subject</option>
+                <option value="option3">Arrange Paper </option>
+                <option value="option3">Change FYP Project  </option>
+                <option value="option3">Course Withdrawal  </option>
+                <option value="option3">Change Supervisor </option>
+                <option value="option3">Educational Documents   </option>
+                <option value="option3">Other  </option>
+
+              </select>
+
+
+
+            </div>
+
+            <div className="mb-4 mt-4">
+              <label htmlFor="options" className="block text-gray-700 text-sm font-bold mb-2">
+                Send To
+              </label>
+              <select id="options" placeholder='Choose Application Type' className="w-60 border bg-gray-300  rounded-lg p-2">
+                <option value="option1">To Chairman </option>
+                <option value="option2">To Semester Coordinator</option>
+                <option value="option3">To Batch Advisor </option>
+                <option value="option3">To Teacher </option>
+                <option value="option3">Other</option>
+
+                
+
+              </select>
+
+
+
+            </div>
+
+
+            <div className="w-full  ml-[320px] -mt-80 mb-4">
+              <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">
+                Message
+              </label>
+              <textarea
+                id="message"
+                className="w-60 h-72 border bg-gray-300 rounded-lg p-2"
+                placeholder="Enter your message here"
+              ></textarea>
+            </div>
+            
+            <button
+              type="submit"
+              className="w-60 mt-6 ml-80 bg-[#329987] text-white p-2 rounded-md font-semibold"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
 
           
 
@@ -131,7 +210,7 @@ const Welcome = () => {
 
 
     </div>
-  );
-};
+  )
+}
 
-export default Welcome;
+export default Application2

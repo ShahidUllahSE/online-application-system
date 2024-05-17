@@ -27,7 +27,12 @@ const Navbar = () => {
           <Link to='/About' className="text-white font-medium hover:border-b-2 hover:border-[#329987]"> About Us</Link>
           <Link to='/Contact' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Contact Us</Link>
 
-          <Link to='/Welcome' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Welcomee</Link>
+          {/* <Link to='/Welcome' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Welcomee</Link>
+          <Link to='/Application' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Application</Link> */}
+
+<Link to='/Application2' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Application2</Link> */}
+
+
 
 
         </ul>
@@ -35,7 +40,8 @@ const Navbar = () => {
       <div>
       <Link to="/Login">
   <button className="text-white w-28 ml-10 mr-8 text-lg bg-[#329987] p-2 rounded-xl font-semibold">Log In</button>
-</Link>      </div>
+</Link>    
+  </div>
     </div>
   );
 };
