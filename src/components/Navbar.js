@@ -27,7 +27,7 @@ const Navbar = () => {
           <Link to='/About' className="text-white font-medium hover:border-b-2 hover:border-[#329987]"> About Us</Link>
           <Link to='/Contact' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Contact Us</Link>
 
-          <Link to='/Welcome' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Welcome</Link>
+          <Link to='/Welcome' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Welcomee</Link>
 
 
         </ul>
