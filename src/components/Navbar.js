@@ -24,13 +24,15 @@ const Navbar = () => {
       <div className="w-2/3 ml-auto flex justify-center">
         <ul className="flex space-x-4 md:space-x-20 lg:space-x-32  mr-4 md:mr-0">
           <Link to='/Home' className="text-white font-medium hover:border-b-2 hover:border-[#329987] "> Home</Link>
-          <Link to='/About' className="text-white font-medium hover:border-b-2 hover:border-[#329987]"> About Us</Link>
-          <Link to='/Contact' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Contact Us</Link>
+          {/* <Link to='/About' className="text-white font-medium hover:border-b-2 hover:border-[#329987]"> About Us</Link>
+          <Link to='/Contact' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Contact Us</Link> */}
 
-          {/* <Link to='/Welcome' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Welcomee</Link>
-          <Link to='/Application' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Application</Link> */}
+          <Link to='/Welcome' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Welcome</Link>
+          <Link to='/Application' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Application</Link>
 
-<Link to='/Application2' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Application2</Link> */}
+          <Link to='/AdminAppForms' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> admin</Link>
+
+<Link to='/Application2' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Application2</Link> 
 
 
 
