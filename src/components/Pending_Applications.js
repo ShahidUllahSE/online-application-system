@@ -3,7 +3,7 @@ import UserData from './UsersData.js';
 
 const API = "https://jsonplaceholder.typicode.com/users";
 
-const Completed_Applications = () => {
+const Pending_Applications = () => {
   const [users, setUsers] = useState([]);
 
   const fetchUsers = async (url) => {
@@ -146,4 +146,4 @@ const Completed_Applications = () => {
   );
 };
 
-export default Completed_Applications;
+export default Pending_Applications;
