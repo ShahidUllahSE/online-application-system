@@ -10,6 +10,8 @@ import OnlineApplication from './components/OnlineApplication';
 import Application2 from './components/Application2';
 import AdminAppForms from './components/AdminAppForms';
 import SideBar from './components/SideBar';
+import Completed_Applications from './components/Completed_Applications';
+import Pending_Applications from './components/Pending_Applications';
 
 function App() {
   return (
@@ -18,16 +20,21 @@ function App() {
       <Router>
  <Navbar />     
 <Routes>
-  {/* <Route path='/Home' element={<Home/>}/>
-  <Route path='/About' element={<About/>}/> */}
+  <Route path='/Home' element={<Home/>}/>
+  <Route path='/About' element={<About/>}/>
   <Route path='/Contact' element={<Contact />}/>
   <Route path='/Login' element={<Login />}/>
   <Route path='/Welcome' element={<Welcome />}/>
-  {/* <Route path='/Application' element={<OnlineApplication />}/> */}
+  <Route path='/Application' element={<OnlineApplication />}/>  
   <Route path='/SideBar' element={<SideBar />}/>
 <Route path='/Application2' element={<Application2 />}/> 
 
 <Route path='/AdminAppForms' element={<AdminAppForms />}/> 
+
+<Route path='/Completed-Applications' element={<Completed_Applications />}/> 
+ 
+<Route path='/Pending-Applications' element={<Pending_Applications />}/> 
+
 
 
 

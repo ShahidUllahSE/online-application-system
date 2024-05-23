@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SideBar from "./SideBar";
 
 const Welcome = () => {
   const navigate = useNavigate();
 
   const handleCreateApplication = () => {
-    navigate('/application2');
+    navigate('/Application2');
   };
 
   return (
@@ -24,7 +25,7 @@ const Welcome = () => {
           <span>CREATE NEW APPLICATION</span>
         </p>
         <div className="mt-8">
-          <button className="text-white w-80 text-lg bg-[#329987] p-2 rounded-xl font-semibold">
+          <button onClick={handleCreateApplication} className="text-white w-80 text-lg bg-[#329987] p-2 rounded-xl font-semibold">
             Create New Application
           </button>
         </div>
