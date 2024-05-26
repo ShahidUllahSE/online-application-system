@@ -12,6 +12,10 @@ import AdminAppForms from './components/AdminAppForms';
 import SideBar from './components/SideBar';
 import Completed_Applications from './components/Completed_Applications';
 import Pending_Applications from './components/Pending_Applications';
+import AdminSideBar from './components/AdminSideBar'
+import AddRoles from './components/AddRoles';
+import EditRoles from './components/EditRoles';
+
 
 function App() {
   return (
@@ -34,6 +38,13 @@ function App() {
 <Route path='/Completed-Applications' element={<Completed_Applications />}/> 
  
 <Route path='/Pending-Applications' element={<Pending_Applications />}/> 
+
+<Route path='/AdminSideBar' element={<AdminSideBar />}/> 
+<Route path='/AddRoles' element={<AddRoles />}/> 
+<Route path='/EditRoles' element={<EditRoles />}/> 
+
+
+
 
 
 

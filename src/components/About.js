@@ -32,7 +32,7 @@ const About = () => {
 
 
 
-      <div className="flex flex-col w-[380px] h-[100px]  rounded-xl bg-white -mt-28 ">
+      <div className="flex flex-col w-[380px] h-[100px]  rounded-xl bg-white -mt-36 ">
         <h1 className="text-black items-center mx-32  font-bold font-[Gudea] ">What We Do</h1>
         <div className=" inline-flex mx-2 text-sm space-x-2">
         <img src={icontick} alt="" />

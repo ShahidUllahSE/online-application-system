@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from './SideBar';
+import SideBar from './SideBar';
 
 const Application2 = () => {
   return (
@@ -28,11 +28,13 @@ const Application2 = () => {
           </svg>
         </button>
 
-        <div className="fixed left-0  z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 -mt-2">
-          <Sidebar />
+        <div className='-ml-4 -mt-3'>
+
+
+        <SideBar/>
         </div>
         
-        <div className="flex justify-center -mt-4 pt-16 items-center h-auto bg-[#1F4887]">
+        <div className="flex justify-center -mt-[590px] pt-16 items-center h-auto bg-[#1F4887]">
           <form className="bg-white ml-52 h-[500px] w-[650px] p-8 rounded-lg -mt-8 shadow-md">
             <h1 className="text-3xl font-bold font-serif pb-4 ml-16">Online Application Form</h1>
             <div>

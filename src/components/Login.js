@@ -15,6 +15,13 @@ const Login = () => {
     } else {
       alert('Incorrect username or password');
     }
+
+    if(username==='admin' && password === 'admin'){
+      navigate('/AdminAppForms')
+    }
+    else{
+      alert('incorrect admin username or password')
+    }
   };
 
   return (
