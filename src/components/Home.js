@@ -23,7 +23,7 @@ const Home = () => {
         </div>
       </div>
       <div className='flex flex-col md:ml-10 md:-mt-40 lg:-mt-56'>
-        <span className='text-white font-[sans-serif] text-sm font-bold'>here you can select type of application and also you can create</span>
+        <span className='text-white font-[sans-serif] text-sm font-bold'>Here you can select type of application and also you can create</span>
         <span className='text-white font-[sans-serif] text-sm font-bold'>new application and also you can upload your pdf documents</span>
         <span className='text-white font-[sans-serif] text-sm font-bold'>which are required for the application it depends on type of</span>
         <span className='text-white font-[sans-serif] text-sm font-bold'>application.</span>

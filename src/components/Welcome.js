@@ -12,6 +12,7 @@ const Welcome = () => {
   return (
     <div className="Flex Flex-col justify-center items-center bg-[#1F4887]">
       <SideBar/>
+    
      
     <div className=" ">
       
