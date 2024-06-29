@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import logo from '../assest/logo.png';
 import login2 from '../assest/login2.png';
 
@@ -8,19 +9,21 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (username === 'student' && password === 'student') {
-      navigate('/Welcome');
-    } else {
-      alert('Incorrect username or password');
-    }
 
-    if(username==='admin' && password === 'admin'){
-      navigate('/AdminAppForms')
-    }
-    else{
-      alert('incorrect admin username or password')
+    try {
+      const res = await axios.post('http://localhost:5000/api/auth/login', { username, password });
+      if (res.data.role === 'student') {
+        navigate('/Welcome');
+      } else if (res.data.role === 'admin') {
+        navigate('/AdminAppForms');
+      } else {
+        alert('Incorrect username or password');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Incorrect username or password');
     }
   };
 

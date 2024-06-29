@@ -1,7 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import SideBar from './SideBar';
 
 const Application2 = () => {
+  const [fullName, setFullName] = useState('');
+  const [registrationNumber, setRegistrationNumber] = useState('');
+  const [applicationType, setApplicationType] = useState('');
+  const [sendTo, setSendTo] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent page refresh
+
+    if (!fullName || !registrationNumber || !applicationType || !sendTo || !message) {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    try {
+      const res = await axios.post('http://localhost:5000/api/applications', {
+        fullName,
+        registrationNumber,
+        applicationType,
+        sendTo,
+        message,
+      });
+      console.log('Form submitted successfully:', res.data);
+      // Optionally, clear the form or show a success message
+    } catch (err) {
+      console.error('Form submission error:', err.response.data);
+      // Handle error, show error message, etc.
+    }
+  };
+
   return (
     <div className="h-screen mt-3 bg-[#1F4887]">
       <div className="h-auto">
@@ -29,56 +60,55 @@ const Application2 = () => {
         </button>
 
         <div className='-ml-4 -mt-3'>
-
-
-        <SideBar/>
+          <SideBar />
         </div>
-        
+
         <div className="flex justify-center -mt-[590px] pt-16 items-center h-auto bg-[#1F4887]">
-          <form className="bg-white ml-52 h-[500px] w-[650px] p-8 rounded-lg -mt-8 shadow-md">
+          <form className="bg-white ml-52 h-[500px] w-[650px] p-8 rounded-lg -mt-8 shadow-md" onSubmit={handleSubmit}>
             <h1 className="text-3xl font-bold font-serif pb-4 ml-16">Online Application Form</h1>
             <div>
-              <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
+              <label htmlFor="fullName" className="block text-gray-700 text-sm font-bold mb-2">
                 Full Name
               </label>
               <input
                 type="text"
-                id="name"
+                id="fullName"
                 className="w-60 border rounded-lg bg-gray-300 p-2"
                 placeholder="Enter your name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
               />
             </div>
 
             <div>
-              <label htmlFor="reg" className="block text-gray-700 text-sm font-bold mb-2">
+              <label htmlFor="registrationNumber" className="block text-gray-700 text-sm font-bold mb-2">
                 Registration No.
               </label>
               <input
                 type="text"
-                id="reg"
+                id="registrationNumber"
                 className="w-60 border rounded-lg bg-gray-300 p-2"
                 placeholder="Enter your Registration Number"
+                value={registrationNumber}
+                onChange={(e) => setRegistrationNumber(e.target.value)}
               />
             </div>
-            
+
             <div className="mb-4 mt-4">
-              <label htmlFor="options" className="block text-gray-700 text-sm font-bold mb-2">
+              <label htmlFor="applicationType" className="block text-gray-700 text-sm font-bold mb-2">
                 Application Type
               </label>
-              <select id="options" className="w-60 border bg-gray-300 rounded-lg p-2">
-                <option value="option1">Choose Application Type</option>
-                <option value="option2">Freezing Semester</option>
-                <option value="option3">Admission Cancellation</option>
-                <option value="option4">Rearrangement Of Mid Exam</option>
-                <option value="option5">Active Enrollment</option>
-                <option value="option6">Course Completion Certificate</option>
-                <option value="option7">Change Subject</option>
-                <option value="option8">Arrange Paper</option>
-                <option value="option9">Change FYP Project</option>
-                <option value="option10">Course Withdrawal</option>
-                <option value="option11">Change Supervisor</option>
-                <option value="option12">Educational Documents</option>
-                <option value="option13">Other</option>
+              <select
+                id="applicationType"
+                className="w-60 border bg-gray-300 rounded-lg p-2"
+                value={applicationType}
+                onChange={(e) => setApplicationType(e.target.value)}
+              >
+                <option value="">Choose Application Type</option>
+                <option value="Semester Freezing">Semester Freezing</option>
+                <option value="Paper Cancellation">Paper Cancellation</option>
+                <option value="Paper Rechecking">Paper Rechecking</option>
+                <option value="Change FYP">Change FYP</option>
               </select>
             </div>
 
@@ -86,12 +116,18 @@ const Application2 = () => {
               <label htmlFor="sendTo" className="block text-gray-700 text-sm font-bold mb-2">
                 Send To
               </label>
-              <select id="sendTo" className="w-60 border bg-gray-300 rounded-lg p-2">
-                <option value="option1">To Chairman</option>
-                <option value="option2">To Semester Coordinator</option>
-                <option value="option3">To Batch Advisor</option>
-                <option value="option4">To Teacher</option>
-                <option value="option5">Other</option>
+              <select
+                id="sendTo"
+                className="w-60 border bg-gray-300 rounded-lg p-2"
+                value={sendTo}
+                onChange={(e) => setSendTo(e.target.value)}
+              >
+                <option value="">Choose Recipient</option>
+                <option value="Chairman">Chairman</option>
+                <option value="Semester Coordinator">Semester Coordinator</option>
+                <option value="Batch Advisor">Batch Advisor</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Other">Other</option>
               </select>
             </div>
 
@@ -103,9 +139,11 @@ const Application2 = () => {
                 id="message"
                 className="w-60 h-72 border bg-gray-300 rounded-lg p-2"
                 placeholder="Enter your message here"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
               ></textarea>
             </div>
-            
+
             <button
               type="submit"
               className="w-60 mt-6 ml-80 bg-[#329987] text-white p-2 rounded-md font-semibold"

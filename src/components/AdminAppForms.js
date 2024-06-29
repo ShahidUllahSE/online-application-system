@@ -2,26 +2,24 @@ import React, { useEffect, useState } from 'react';
 import AdminSideBar from './AdminSideBar.js';
 import UserData from './UsersData.js';
 
-const API = "https://jsonplaceholder.typicode.com/users";
-
 const AdminAppForms = () => {
-  const [users, setUsers] = useState([]);
+  const [applications, setApplications] = useState([]);
 
-  const fetchUsers = async (url) => {
+  const fetchApplications = async () => {
     try {
-      const res = await fetch(url);
-      const data = await res.json();
-      if (data.length > 0) {
-        setUsers(data);
+      const res = await fetch('http://localhost:5000/api/applications');
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
       }
-      console.log(data);
-    } catch (e) {
-      console.error(e);
+      const data = await res.json();
+      setApplications(data);
+    } catch (error) {
+      console.error('Error fetching applications:', error);
     }
   };
 
   useEffect(() => {
-    fetchUsers(API);
+    fetchApplications();
   }, []);
 
   return (
@@ -32,14 +30,21 @@ const AdminAppForms = () => {
           <table className="w-full border border-gray-200 rounded-lg shadow-sm">
             <thead className="bg-gray-300">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sent To</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application Type</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              <UserData users={users} />
+              {applications.map((application) => (
+                <tr key={application._id}>
+                  <td className="px-6 py-4 whitespace-nowrap">{application.fullName}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{application.sendTo}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{application.applicationType}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{application.status}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

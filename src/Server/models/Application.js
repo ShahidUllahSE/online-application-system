@@ -3,28 +3,28 @@ const mongoose = require('mongoose');
 const ApplicationSchema = new mongoose.Schema({
   fullName: {
     type: String,
-    required: true
+    required: true,
   },
   registrationNumber: {
     type: String,
-    required: true
+    required: true,
   },
   applicationType: {
     type: String,
-    required: true
+    required: true,
   },
   sendTo: {
     type: String,
-    required: true
+    required: true,
   },
   message: {
     type: String,
-    required: true
+    required: true,
   },
-  submittedAt: {
-    type: Date,
-    default: Date.now
-  }
+  status: {
+    type: String,
+    default: 'Pending',
+  },
 });
 
 module.exports = mongoose.model('Application', ApplicationSchema);
