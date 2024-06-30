@@ -1,16 +1,20 @@
 // Import necessary modules and models
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 require('dotenv').config();
 
 const User = require('./models/User');
-const Application = require('./models/Application');
 const Credential = require('./models/Credential');
 const AdminCredential = require('./models/AdminCredential');
-const Role = require('./models/Role'); // Import the Role model
+const FacultyCredential = require('./models/FacultyCredential');
+const ChairmanApplication = require('./models/ChairmanApplication');
+const TeacherApplication = require('./models/TeacherApplication');
+const BatchAdvisorApplication = require('./models/BatchAdvisorApplication');
+const SemesterCoordinatorApplication = require('./models/SemesterCoordinatorApplication');
+const OtherApplication = require('./models/OtherApplication');
+const Role = require('./models/Role');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -48,7 +52,7 @@ app.post('/api/auth/login', async (req, res) => {
         return res.status(400).json({ msg: 'Invalid credentials' });
       }
 
-      const token = jwt.sign({ id: user.id, role: 'student' }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ id: user.id, role: 'student', username: user.Username }, process.env.JWT_SECRET, {
         expiresIn: '1h'
       });
 
@@ -62,11 +66,46 @@ app.post('/api/auth/login', async (req, res) => {
         return res.status(400).json({ msg: 'Invalid credentials' });
       }
 
-      const token = jwt.sign({ id: admin.id, role: 'admin' }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ id: admin.id, role: 'admin', username: admin.Username }, process.env.JWT_SECRET, {
         expiresIn: '1h'
       });
 
       return res.json({ token, user: admin, role: 'admin' });
+    }
+
+    let faculty = await FacultyCredential.findOne({ Username: username });
+
+    if (faculty) {
+      if (faculty.Password !== password) {
+        return res.status(400).json({ msg: 'Invalid credentials' });
+      }
+
+      let role = '';
+      switch (username) {
+        case 'chairman':
+          role = 'chairman';
+          break;
+        case 'batch_advisor':
+          role = 'batch_advisor';
+          break;
+        case 'teacher':
+          role = 'teacher';
+          break;
+        case 'semester_coordinator':
+          role = 'semester_coordinator';
+          break;
+        case 'other':
+          role = 'other';
+          break;
+        default:
+          return res.status(400).json({ msg: 'Invalid role' });
+      }
+
+      const token = jwt.sign({ id: faculty.id, role, username: faculty.Username }, process.env.JWT_SECRET, {
+        expiresIn: '1h'
+      });
+
+      return res.json({ token, user: faculty, role });
     }
 
     return res.status(400).json({ msg: 'Invalid credentials' });
@@ -77,62 +116,88 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
+// Routes to get applications based on role
+app.get('/api/chairman-applications', async (req, res) => {
+  try {
+    const applications = await ChairmanApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching chairman applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/teacher-applications', async (req, res) => {
+  try {
+    const applications = await TeacherApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching teacher applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/batch-advisor-applications', async (req, res) => {
+  try {
+    const applications = await BatchAdvisorApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching batch advisor applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/semester-coordinator-applications', async (req, res) => {
+  try {
+    const applications = await SemesterCoordinatorApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching semester coordinator applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/other-applications', async (req, res) => {
+  try {
+    const applications = await OtherApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching other applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
 // Route to handle different types of applications
 app.post('/api/applications', async (req, res) => {
-  const { fullName, registrationNumber, applicationType, sendTo, message } = req.body;
-  console.log('Request body:', req.body);
+  const { fullName, registrationNumber, applicationType, sendTo, message, username } = req.body;
 
   try {
     let ApplicationModel;
-    switch (sendTo) {
-      case 'Chairman':
-        ApplicationModel = mongoose.model('ChairmanApplication', Application.schema);
+    switch (sendTo.toLowerCase()) {
+      case 'chairman':
+        ApplicationModel = ChairmanApplication;
         break;
-      case 'Semester Coordinator':
-        ApplicationModel = mongoose.model('SemesterCoordinatorApplication', Application.schema);
+      case 'semester coordinator':
+        ApplicationModel = SemesterCoordinatorApplication;
         break;
-      case 'Teacher':
-        ApplicationModel = mongoose.model('TeacherApplication', Application.schema);
+      case 'teacher':
+        ApplicationModel = TeacherApplication;
         break;
-      case 'Batch Advisor':
-        ApplicationModel = mongoose.model('BatchAdvisorApplication', Application.schema);
+      case 'batch advisor':
+        ApplicationModel = BatchAdvisorApplication;
         break;
-      case 'Other':
-        ApplicationModel = mongoose.model('OtherApplication', Application.schema);
+      case 'other':
+        ApplicationModel = OtherApplication;
         break;
       default:
         return res.status(400).send('Invalid recipient');
     }
 
-    await ApplicationModel.create({ fullName, registrationNumber, applicationType, sendTo, message });
+    await ApplicationModel.create({ fullName, registrationNumber, applicationType, sendTo, message, username });
 
     res.status(201).send(`${sendTo} application submitted successfully`);
   } catch (error) {
     console.error('Error submitting application:', error);
-    res.status(500).send('Server error');
-  }
-});
-
-// Route to get all applications from all tables
-app.get('/api/applications', async (req, res) => {
-  try {
-    const chairmanApplications = await mongoose.model('ChairmanApplication', Application.schema).find();
-    const semesterCoordinatorApplications = await mongoose.model('SemesterCoordinatorApplication', Application.schema).find();
-    const teacherApplications = await mongoose.model('TeacherApplication', Application.schema).find();
-    const batchAdvisorApplications = await mongoose.model('BatchAdvisorApplication', Application.schema).find();
-    const otherApplications = await mongoose.model('OtherApplication', Application.schema).find();
-
-    const allApplications = [
-      ...chairmanApplications,
-      ...semesterCoordinatorApplications,
-      ...teacherApplications,
-      ...batchAdvisorApplications,
-      ...otherApplications,
-    ];
-
-    res.json(allApplications);
-  } catch (error) {
-    console.error('Error fetching applications:', error);
     res.status(500).send('Server error');
   }
 });

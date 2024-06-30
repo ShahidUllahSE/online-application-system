@@ -15,6 +15,12 @@ import Pending_Applications from './components/Pending_Applications';
 import AdminSideBar from './components/AdminSideBar'
 import AddRoles from './components/AddRoles';
 import EditRoles from './components/EditRoles';
+import FacultySidebar from './components/FacultySidebar';
+import FacultyDashboard from './components/FacultyDashboard';
+import FacultyCompletedApp from './components/FacultyCompletedApp';
+import FacultyPendingApp from './components/FacultyPendingApp';
+import FacultyStudentDetails from './components/FacultyStudentDetails';
+
 
 
 function App() {
@@ -42,6 +48,12 @@ function App() {
 <Route path='/AdminSideBar' element={<AdminSideBar />}/> 
 <Route path='/AddRoles' element={<AddRoles />}/> 
 <Route path='/EditRoles' element={<EditRoles />}/> 
+<Route path='/FacultySidebar' element={<FacultySidebar/>}/> 
+<Route path='/FacultyDashboard' element={<FacultyDashboard/>}/> 
+<Route path='/FacultyCompletedApp' element={<FacultyCompletedApp/>}/> 
+<Route path='/FacultyPendingApp' element={<FacultyPendingApp/>}/>
+<Route path='/FacultyStudentDetails' element={<FacultyStudentDetails/>}/>
+
 
 
 

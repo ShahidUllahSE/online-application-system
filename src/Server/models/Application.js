@@ -1,30 +1,13 @@
 const mongoose = require('mongoose');
 
-const ApplicationSchema = new mongoose.Schema({
-  fullName: {
-    type: String,
-    required: true,
-  },
-  registrationNumber: {
-    type: String,
-    required: true,
-  },
-  applicationType: {
-    type: String,
-    required: true,
-  },
-  sendTo: {
-    type: String,
-    required: true,
-  },
-  message: {
-    type: String,
-    required: true,
-  },
-  status: {
-    type: String,
-    default: 'Pending',
-  },
+const applicationSchema = new mongoose.Schema({
+  fullName: String,
+  registrationNumber: String,
+  applicationType: String,
+  sendTo: String,
+  message: String,
+  username: String, // Add this field
+  status: { type: String, default: 'Pending' },
 });
 
-module.exports = mongoose.model('Application', ApplicationSchema);
+module.exports = mongoose.model('Application', applicationSchema);

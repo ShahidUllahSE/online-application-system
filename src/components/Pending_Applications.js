@@ -7,7 +7,7 @@ const Pending_Applications = () => {
 
   const fetchApplications = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token'); // Assuming you store token in localStorage after login
 
       const res = await fetch('http://localhost:5000/api/applications', {
         headers: {
@@ -17,9 +17,9 @@ const Pending_Applications = () => {
 
       const data = await res.json();
       if (res.status === 200) {
-        setApplications(data.filter(app => app.userId === user.id));
+        setApplications(data);
       } else {
-        console.error(data.msg);
+        console.error(data.msg); // Handle error response from backend
       }
     } catch (e) {
       console.error(e);
@@ -27,8 +27,9 @@ const Pending_Applications = () => {
   };
 
   useEffect(() => {
-    const username = 'your_username';
-    const password = 'your_password';
+    // Replace this with your actual login implementation
+    const username = 'your_username'; // Replace with actual username input or state
+    const password = 'your_password'; // Replace with actual password input or state
 
     const login = async () => {
       try {
@@ -45,7 +46,7 @@ const Pending_Applications = () => {
           setUser(data.user);
           localStorage.setItem('token', data.token);
         } else {
-          console.error(data.msg);
+          console.error(data.msg); // Handle error response from backend
         }
       } catch (e) {
         console.error(e);

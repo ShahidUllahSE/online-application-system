@@ -25,7 +25,7 @@ const Application2 = () => {
         sendTo,
         message,
       });
-      console.log('Form submitted successfully:', res.data);
+      alert('Form submitted successfully:', res.data);
       // Optionally, clear the form or show a success message
     } catch (err) {
       console.error('Form submission error:', err.response.data);
