@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../assest/logo.png';
-import login2 from '../assest/login2.png';
+import loginImage from '../assest/login2.png';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -12,48 +12,53 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Hardcoded credentials for specific roles
-    const hardcodedCredentials = {
-      admin: { username: 'admin', password: 'admin123' },
-      chairman: { username: 'chairman', password: 'chairman123' },
-      batch_advisor: { username: 'batch_advisor', password: 'batch_advisor123' },
-      teacher: { username: 'teacher', password: 'teacher123' },
-      semester_coordinator: { username: 'semester_coordinator', password: 'semester_coordinator123' },
-      other: { username: 'other', password: 'other123' },
-    };
-
     try {
       // Check if the entered username and password match hardcoded credentials first
+      const hardcodedCredentials = {
+        admin: { username: 'admin', password: 'admin123' },
+        chairman: { username: 'chairman', password: 'chairman123' },
+        batch_advisor: { username: 'batch_advisor', password: 'batch_advisor123' },
+        teacher: { username: 'teacher', password: 'teacher123' },
+        semester_coordinator: { username: 'semester_coordinator', password: 'semester_coordinator123' },
+        other: { username: 'other', password: 'other123' },
+        fyp_supervisor: { username: 'fyp_supervisor', password: 'fyp_supervisor123' },
+        associate_chairman: { username: 'associate_chairman', password: 'associate_chairman123' },
+        convener_disciplinary_committee: { username: 'convener_disciplinary_committee', password: 'convener_disciplinary_committee123' },
+        convener_scholarship_committee: { username: 'convener_scholarship_committee', password: 'convener_scholarship_committee123' },
+        coordinator: { username: 'coordinator', password: 'coordinator123' },
+        mid_exam_rearrangement_committee: { username: 'mid_exam_rearrangement_committee', password: 'mid_exam_rearrangement_committee123' },
+        all_faculty_members: { username: 'all_faculty_members', password: 'all_faculty_members123' },
+        cms_operator: { username: 'cms_operator', password: 'cms_operator123' },
+        office_assistant: { username: 'office_assistant', password: 'office_assistant123' },
+        student: { username: 'shahid321', password: 'shahid321' }
+      };
+
       const user = hardcodedCredentials[username];
       if (user && user.password === password) {
-        // Navigate based on the role
-        switch (username) {
-          case 'admin':
+        localStorage.setItem('username', username);
+        if( username ==='admin' && user.password === password)
+          {
+
             navigate('/AdminAppForms');
-            return;
-          case 'chairman':
-          case 'batch_advisor':
-          case 'teacher':
-          case 'semester_coordinator':
-          case 'other':
-            navigate('/FacultyDashboard');
-            return;
-          default:
-            alert('Unauthorized access');
-            return;
-        }
+          }
+          else
+        navigate('/FacultyDashboard'); // Navigate based on role
+        return;
       }
 
       // If not matched in hardcoded, then try with MongoDB credentials
       const res = await axios.post('http://localhost:5000/api/auth/login', { username, password });
 
       if (res.data.token) {
-        navigate('/Welcome');
+        const { token, username } = res.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
+        navigate('/Welcome'); // Navigate to Welcome page or appropriate dashboard
       } else {
         alert('Incorrect username or password');
       }
     } catch (err) {
-      console.error(err);
+      console.error('Login error:', err);
       alert('Login failed');
     }
   };
@@ -71,7 +76,7 @@ const Login = () => {
 
       {/* Right side image */}
       <div className='w-[376px] bg-[#F1F1F1] h-full mt-[100px] -ml-96'>
-        <img className='' src={login2} alt='' />
+        <img className='' src={loginImage} alt='' />
       </div>
 
       {/* Login form */}

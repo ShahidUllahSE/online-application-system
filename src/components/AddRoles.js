@@ -66,23 +66,33 @@ const AddRoles = () => {
           </div>
 
           <div className="mb-4 mt-12">
-            <label htmlFor="role" className="block text-gray-700 text-sm font-bold mb-2">
-              Role
-            </label>
-            <select
-              id="role"
-              className="w-full border bg-gray-300 rounded-lg p-2"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option value="">Select Role</option>
-              <option value="Chairman">Chairman</option>
-              <option value="Semester Coordinator">Semester Coordinator</option>
-              <option value="Batch Advisor">Batch Advisor</option>
-              <option value="Teacher">Teacher</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
+  <label htmlFor="role" className="block text-gray-700 text-sm font-bold mb-2">
+    Role
+  </label>
+  <select
+    id="role"
+    className="w-full border bg-gray-300 rounded-lg p-2"
+    value={role}
+    onChange={(e) => setRole(e.target.value)}
+  >
+    <option value="">Select Role</option>
+    <option value="Chairman">Chairman</option>
+    <option value="Semester Coordinator">Semester Coordinator</option>
+    <option value="Batch Advisor">Batch Advisor</option>
+    <option value="Teacher">Teacher</option>
+    <option value="Other">Other</option>
+    <option value="FYP Supervisor">FYP Supervisor</option>
+    <option value="Associate Chairman">Associate Chairman</option>
+    <option value="Convener Disciplinary Committee">Convener Disciplinary Committee</option>
+    <option value="Convener Scholarship Committee">Convener Scholarship Committee</option>
+    <option value="Coordinator">Coordinator</option>
+    <option value="Mid Exam Rearrangement Committee">Mid Exam Rearrangement Committee</option>
+    <option value="All Faculty Members">All Faculty Members</option>
+    <option value="CMS Operator">CMS Operator</option>
+    <option value="Office Assistant">Office Assistant</option>
+  </select>
+</div>
+
           <button
             type="submit"
             className="w-72 mt-16 ml-28 bg-[#329987] text-white p-2 rounded-md font-semibold"

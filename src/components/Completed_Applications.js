@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import UserData from './UsersData.js';
-import SideBar from './SideBar.js';
+import axios from 'axios';
+import SideBar from './SideBar';
+import UserData from './UsersData'; // Assuming this component correctly displays user data
 
-const API = "https://jsonplaceholder.typicode.com/users";
+const API = "http://localhost:5000/completed-applications";
 
 const Completed_Applications = () => {
-  const [users, setUsers] = useState([]);
+  const [applications, setApplications] = useState([]);
 
-  const fetchUsers = async (url) => {
+  const fetchCompletedApplications = async () => {
     try {
-      const res = await fetch(url);
-      const data = await res.json();
+      const res = await axios.get(API,
+        
+      );
+      const data = res.data;
       if (data.length > 0) {
-        setUsers(data);
+        setApplications(data);
       }
       console.log(data);
     } catch (e) {
@@ -21,32 +24,40 @@ const Completed_Applications = () => {
   };
 
   useEffect(() => {
-    fetchUsers(API);
+    fetchCompletedApplications();
   }, []);
 
   return (
-    <div className="h-screen bg-[#1F4887]  flex items-center justify-center">
-        
-        <div className='-ml-28'>
-
-
-        <SideBar/>
+    <div>
+      <div>
+        <SideBar />
+      </div>
+      <div className="bg-[#1F4887] flex flex-col -mt-[550px] items-center justify-center">
+        <div className="flex-grow p-4 flex items-center justify-center w-full">
+          <table className="w-full max-w-4xl  ml-44 border border-gray-200 rounded-lg shadow-sm">
+            <thead className="bg-gray-300">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registration Number</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application Type</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted At</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {applications.map(application => (
+                <tr key={application._id}>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{application.fullName}</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{application.registrationNumber}</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{application.applicationType}</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{application.status}</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{new Date(application.submittedAt).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-
-      <table className="w-full max-w-4xl -mt-24 ml-8 border border-gray-200 rounded-lg shadow-sm">
-        <thead className="bg-gray-300">
-          <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application Type</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Attached Files</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Concerned Department</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          <UserData users={users} />
-        </tbody>
-      </table>
+      </div>
     </div>
   );
 };

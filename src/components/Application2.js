@@ -109,6 +109,15 @@ const Application2 = () => {
                 <option value="Paper Cancellation">Paper Cancellation</option>
                 <option value="Paper Rechecking">Paper Rechecking</option>
                 <option value="Change FYP">Change FYP</option>
+                <option value="Admission Cancellation">Admission Cancellation</option>
+                <option value="Rearrangement of Mid Exam">Rearrangement of Mid Exam</option>
+                <option value="Active Enrollment">Active Enrollment</option>
+                <option value="Course Completion Certificate">Course Completion Certificate</option>
+                <option value="Change Subject">Change Subject</option>
+                <option value="Arrange Paper">Arrange Paper</option>
+                <option value="Course Withdrawal">Course Withdrawal</option>
+                <option value="Change Supervisor">Change Supervisor</option>
+                <option value="Educational Documents">Educational Documents</option>
               </select>
             </div>
 
@@ -127,18 +136,27 @@ const Application2 = () => {
                 <option value="Semester Coordinator">Semester Coordinator</option>
                 <option value="Batch Advisor">Batch Advisor</option>
                 <option value="Teacher">Teacher</option>
+                <option value="FYP Supervisor">FYP Supervisor</option>
+                <option value="Associate Chairman">Associate Chairman</option>
+                <option value="Convener Disciplinary Committee">Convener Disciplinary Committee</option>
+                <option value="Convener Scholarship Committee">Convener Scholarship Committee</option>
+                <option value="Coordinator">Coordinator</option>
+                <option value="Mid Exam Rearrangement Committee">Mid Exam Rearrangement Committee</option>
+                <option value="All Faculty Members">All Faculty Members</option>
+                <option value="CMS Operator">CMS Operator</option>
+                <option value="Office Assistant">Office Assistant</option>
                 <option value="Other">Other</option>
               </select>
             </div>
 
             <div className="w-full ml-[320px] -mt-80 mb-4">
               <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">
-                Message
+                Application
               </label>
               <textarea
                 id="message"
                 className="w-60 h-72 border bg-gray-300 rounded-lg p-2"
-                placeholder="Enter your message here"
+                placeholder="write your Application here"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               ></textarea>

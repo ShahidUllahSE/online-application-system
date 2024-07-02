@@ -20,6 +20,7 @@ import FacultyDashboard from './components/FacultyDashboard';
 import FacultyCompletedApp from './components/FacultyCompletedApp';
 import FacultyPendingApp from './components/FacultyPendingApp';
 import FacultyStudentDetails from './components/FacultyStudentDetails';
+import TemplateSelection from './components/TempleteSelection';
 
 
 
@@ -30,7 +31,7 @@ function App() {
       <Router>
  <Navbar />     
 <Routes>
-  <Route path='/Home' element={<Home/>}/>
+  <Route path='/' element={<Home/>}/>
   <Route path='/About' element={<About/>}/>
   <Route path='/Contact' element={<Contact />}/>
   <Route path='/Login' element={<Login />}/>
@@ -42,6 +43,8 @@ function App() {
 <Route path='/AdminAppForms' element={<AdminAppForms />}/> 
 
 <Route path='/Completed-Applications' element={<Completed_Applications />}/> 
+<Route path='/TempleteSelection' element={<TemplateSelection />}/> 
+
  
 <Route path='/Pending-Applications' element={<Pending_Applications />}/> 
 

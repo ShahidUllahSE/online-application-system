@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import SideBar from './SideBar.js';
+import axios from 'axios';
+import SideBar from './SideBar';
+
+const API = "http://localhost:5000/pending-applications";
 
 const Pending_Applications = () => {
-  const [user, setUser] = useState(null);
   const [applications, setApplications] = useState([]);
 
-  const fetchApplications = async () => {
+  const fetchPendingApplications = async () => {
     try {
-      const token = localStorage.getItem('token'); // Assuming you store token in localStorage after login
-
-      const res = await fetch('http://localhost:5000/api/applications', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const data = await res.json();
-      if (res.status === 200) {
+      const res = await axios.get(API);
+      const data = res.data;
+      if (data.length > 0) {
         setApplications(data);
-      } else {
-        console.error(data.msg); // Handle error response from backend
       }
     } catch (e) {
       console.error(e);
@@ -27,62 +20,36 @@ const Pending_Applications = () => {
   };
 
   useEffect(() => {
-    // Replace this with your actual login implementation
-    const username = 'your_username'; // Replace with actual username input or state
-    const password = 'your_password'; // Replace with actual password input or state
-
-    const login = async () => {
-      try {
-        const res = await fetch('http://localhost:5000/api/auth/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, password }),
-        });
-
-        const data = await res.json();
-        if (res.status === 200) {
-          setUser(data.user);
-          localStorage.setItem('token', data.token);
-        } else {
-          console.error(data.msg); // Handle error response from backend
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    login();
+    fetchPendingApplications();
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      fetchApplications();
-    }
-  }, [user]);
-
   return (
-    <div className="h-screen flex bg-[#1F4887]">
-      <SideBar />
-      <div className="flex-grow p-4 overflow-auto">
-        <div className="w-full max-w-4xl mx-auto mt-16">
-          <table className="w-full border border-gray-200 rounded-lg shadow-sm">
+    <div>
+      <div>
+        <SideBar />
+      </div>
+      <div className="bg-[#1F4887] flex flex-col items-center justify-center">
+        <div className="flex-grow p-4 flex items-center justify-center w-full">
+          <table className="w-full max-w-4xl -mt-[800px] ml-44 border border-gray-200 rounded-lg shadow-sm">
             <thead className="bg-gray-300">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sent To</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registration Number</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application Type</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Send To</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted At</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {applications.map((application) => (
+              {applications.map(application => (
                 <tr key={application._id}>
-                  <td className="px-6 py-4 whitespace-nowrap">{application.fullName}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{application.sendTo}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{application.applicationType}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{application.status || 'Pending'}</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{application.fullName}</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{application.registrationNumber}</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{application.applicationType}</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{application.sendTo}</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{application.status}</td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{new Date(application.submittedAt).toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>

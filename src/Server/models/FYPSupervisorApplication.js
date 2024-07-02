@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ChairmanApplicationSchema = new mongoose.Schema({
+const FYPSupervisorApplicationSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   registrationNumber: { type: String, required: true },
   sendTo: { type: String, required: true },
@@ -13,4 +13,4 @@ const ChairmanApplicationSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('ChairmanApplication', ChairmanApplicationSchema);
+module.exports = mongoose.model('FYPSupervisorApplication', FYPSupervisorApplicationSchema);

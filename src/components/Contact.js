@@ -20,10 +20,16 @@ const Contact = () => {
     try {
       const res = await axios.post('http://localhost:5000/api/contact', formData);
       console.log(res.data);
-      // Handle success (e.g., show a message, clear the form)
+      alert('Contact form submitted successfully');
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+      });
     } catch (err) {
-      console.error(err);
-      // Handle error
+      console.error('Error submitting contact form:', err);
+      alert('Failed to submit contact form');
     }
   };
 
@@ -50,7 +56,7 @@ const Contact = () => {
           </ul>
         </div>
 
-        {/* contact us form */}
+        {/* Contact form */}
         <div className="form bg-white rounded-xl shadow-lg m-4 p-8 md:mr-20 md:mt-16 md:w-96">
           <form onSubmit={onSubmit} className="flex flex-col space-y-4">
             <div>
@@ -96,7 +102,7 @@ const Contact = () => {
                 className="ring-1 ring-gray-300 w-full rounded-md px-2 mt-1 mb-2 h-16 row-span-4 outline-none focus:ring-2 focus:ring-green-300"
               />
             </div>
-            <button className="inline-block self-end bg-[#329987] text-white font-bold rounded-lg px-5 py-1 uppercase text-sm">
+            <button type="submit" className="inline-block self-end bg-[#329987] text-white font-bold rounded-lg px-5 py-1 uppercase text-sm">
               Send
             </button>
           </form>

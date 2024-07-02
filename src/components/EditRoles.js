@@ -35,10 +35,10 @@ const Pending_Applications = () => {
 
   return (
     <div className="h-screen bg-[#1F4887] flex flex-col items-center justify-center">
-      <div className='mt-0 -ml-[1010px]'>
+      <div className='mt-20 -ml-[1010px]'>
         <AdminSideBar />
       </div>
-      <div className="flex-grow p-4 -mt-[870px] ml-60 flex items-center justify-center w-full">
+      <div className="flex-grow p-4 -mt-[700px] ml-60 flex items-center justify-center w-full">
         <table className="w-full max-w-4xl mt-16 border border-gray-200 rounded-lg shadow-sm">
           <thead className="bg-gray-300">
             <tr>
@@ -61,11 +61,20 @@ const Pending_Applications = () => {
                       className="w-full border rounded-lg bg-gray-300 p-2"
                     >
                       <option value="">Select Role</option>
-                      <option value="Chairman">Chairman</option>
-                      <option value="Semester Coordinator">Semester Coordinator</option>
-                      <option value="Teacher">Teacher</option>
-                      <option value="Batch Advisor">Batch Advisor</option>
-                      <option value="Other">Other</option>
+    <option value="Chairman">Chairman</option>
+    <option value="Semester Coordinator">Semester Coordinator</option>
+    <option value="Batch Advisor">Batch Advisor</option>
+    <option value="Teacher">Teacher</option>
+    <option value="Other">Other</option>
+    <option value="FYP Supervisor">FYP Supervisor</option>
+    <option value="Associate Chairman">Associate Chairman</option>
+    <option value="Convener Disciplinary Committee">Convener Disciplinary Committee</option>
+    <option value="Convener Scholarship Committee">Convener Scholarship Committee</option>
+    <option value="Coordinator">Coordinator</option>
+    <option value="Mid Exam Rearrangement Committee">Mid Exam Rearrangement Committee</option>
+    <option value="All Faculty Members">All Faculty Members</option>
+    <option value="CMS Operator">CMS Operator</option>
+    <option value="Office Assistant">Office Assistant</option>
                     </select>
                   ) : (
                     role.role

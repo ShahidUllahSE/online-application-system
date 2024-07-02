@@ -4,17 +4,31 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 require('dotenv').config();
+const auth = require('./middleware/auth');
+
+const contactRoutes = require('./routes/contact');
 
 const User = require('./models/User');
 const Credential = require('./models/Credential');
 const AdminCredential = require('./models/AdminCredential');
 const FacultyCredential = require('./models/FacultyCredential');
+const Role = require('./models/Role');
+
+// Import all new application schemas
 const ChairmanApplication = require('./models/ChairmanApplication');
 const TeacherApplication = require('./models/TeacherApplication');
 const BatchAdvisorApplication = require('./models/BatchAdvisorApplication');
 const SemesterCoordinatorApplication = require('./models/SemesterCoordinatorApplication');
 const OtherApplication = require('./models/OtherApplication');
-const Role = require('./models/Role');
+const FYPSupervisorApplication = require('./models/FYPSupervisorApplication');
+const AssociateChairmanApplication = require('./models/AssociateChairmanApplication');
+const ConvenerDisciplinaryCommitteeApplication = require('./models/ConvenerDisciplinaryCommitteeApplication');
+const ConvenerScholarshipCommitteeApplication = require('./models/ConvenerScholarshipCommitteeApplication');
+const CoordinatorApplication = require('./models/CoordinatorApplication');
+const MidExamRearrangementCommitteeApplication = require('./models/MidExamRearrangementCommitteeApplication');
+const AllFacultyMembersApplication = require('./models/AllFacultyMembersApplication');
+const CMSOperatorApplication = require('./models/CMSOperatorApplication');
+const OfficeAssistantApplication = require('./models/OfficeAssistantApplication');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,7 +38,7 @@ app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Connect to MongoDB
@@ -39,6 +53,9 @@ mongoose.connect(process.env.MONGO_URI, {
   console.error('MongoDB connection error:', err);
   process.exit(1);
 });
+
+app.use('/api/contact', contactRoutes);
+
 
 // Define login route
 app.post('/api/auth/login', async (req, res) => {
@@ -167,6 +184,101 @@ app.get('/api/other-applications', async (req, res) => {
   }
 });
 
+
+
+app.get('/api/fyp-supervisor-applications', async (req, res) => {
+  try {
+    const applications = await FYPSupervisorApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching FYP Supervisor applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/associate-chairman-applications', async (req, res) => {
+  try {
+    const applications = await AssociateChairmanApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching Associate Chairman applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/convener-disciplinary-committee-applications', async (req, res) => {
+  try {
+    const applications = await ConvenerDisciplinaryCommitteeApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching Convener Disciplinary Committee applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/convener-scholarship-committee-applications', async (req, res) => {
+  try {
+    const applications = await ConvenerScholarshipCommitteeApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching Convener Scholarship Committee applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/coordinator-applications', async (req, res) => {
+  try {
+    const applications = await CoordinatorApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching Coordinator applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/mid-exam-rearrangement-committee-applications', async (req, res) => {
+  try {
+    const applications = await MidExamRearrangementCommitteeApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching Mid Exam Rearrangement Committee applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/all-faculty-members-applications', async (req, res) => {
+  try {
+    const applications = await AllFacultyMembersApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching All Faculty Members applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/cms-operator-applications', async (req, res) => {
+  try {
+    const applications = await CMSOperatorApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching CMS Operator applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+app.get('/api/office-assistant-applications', async (req, res) => {
+  try {
+    const applications = await OfficeAssistantApplication.find({}, 'fullName applicationType registrationNumber submittedAt');
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching Office Assistant applications:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+
+
+
 // Route to handle different types of applications
 app.post('/api/applications', async (req, res) => {
   const { fullName, registrationNumber, applicationType, sendTo, message, username } = req.body;
@@ -188,6 +300,33 @@ app.post('/api/applications', async (req, res) => {
         break;
       case 'other':
         ApplicationModel = OtherApplication;
+        break;
+      case 'fyp supervisor':
+        ApplicationModel = FYPSupervisorApplication;
+        break;
+      case 'associate chairman':
+        ApplicationModel = AssociateChairmanApplication;
+        break;
+      case 'convener disciplinary committee':
+        ApplicationModel = ConvenerDisciplinaryCommitteeApplication;
+        break;
+      case 'convener scholarship committee':
+        ApplicationModel = ConvenerScholarshipCommitteeApplication;
+        break;
+      case 'coordinator':
+        ApplicationModel = CoordinatorApplication;
+        break;
+      case 'mid exam rearrangement committee':
+        ApplicationModel = MidExamRearrangementCommitteeApplication;
+        break;
+      case 'all faculty members':
+        ApplicationModel = AllFacultyMembersApplication;
+        break;
+      case 'cms operator':
+        ApplicationModel = CMSOperatorApplication;
+        break;
+      case 'office assistant':
+        ApplicationModel = OfficeAssistantApplication;
         break;
       default:
         return res.status(400).send('Invalid recipient');
@@ -241,7 +380,276 @@ app.put('/api/roles/:id', async (req, res) => {
   }
 });
 
+
+
+
+
+
+
+
+app.post('/api/applications', async (req, res) => {
+    const { fullName, registrationNumber, applicationType, sendTo, message, username } = req.body;
+  
+    try {
+      let ApplicationModel;
+      switch (sendTo.toLowerCase()) {
+        case 'chairman':
+          ApplicationModel = ChairmanApplication;
+          break;
+        case 'semester coordinator':
+          ApplicationModel = SemesterCoordinatorApplication;
+          break;
+        case 'teacher':
+          ApplicationModel = TeacherApplication;
+          break;
+        case 'batch advisor':
+          ApplicationModel = BatchAdvisorApplication;
+          break;
+        case 'other':
+          ApplicationModel = OtherApplication;
+          break;
+        case 'fyp supervisor':
+          ApplicationModel = FYPSupervisorApplication;
+          break;
+        case 'associate chairman':
+          ApplicationModel = AssociateChairmanApplication;
+          break;
+        case 'convener disciplinary committee':
+          ApplicationModel = ConvenerDisciplinaryCommitteeApplication;
+          break;
+        case 'convener scholarship committee':
+          ApplicationModel = ConvenerScholarshipCommitteeApplication;
+          break;
+        case 'coordinator':
+          ApplicationModel = CoordinatorApplication;
+          break;
+        case 'mid exam rearrangement committee':
+          ApplicationModel = MidExamRearrangementCommitteeApplication;
+          break;
+        case 'all faculty members':
+          ApplicationModel = AllFacultyMembersApplication;
+          break;
+        case 'cms operator':
+          ApplicationModel = CMSOperatorApplication;
+          break;
+        case 'office assistant':
+          ApplicationModel = OfficeAssistantApplication;
+          break;
+        default:
+          return res.status(400).send('Invalid recipient');
+      }
+  
+      await ApplicationModel.create({ fullName, registrationNumber, applicationType, sendTo, message, username });
+  
+      res.status(201).send(`${sendTo} application submitted successfully`);
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      res.status(500).send('Server error');
+    }
+  });
+  app.put('/accept-application/:id', async (req, res) => {
+    const applicationId = req.params.id;
+    const userRole = req.headers.userrole;
+  
+    console.log('User Role:', userRole);
+    console.log('Application ID:', applicationId);
+  
+    try {
+      let applicationModel;
+  
+      // Select the appropriate model based on userRole
+      switch (userRole) {
+        case 'chairman':
+          applicationModel = ChairmanApplication;
+          break;
+        case 'teacher':
+          applicationModel = TeacherApplication;
+          break;
+        case 'batch_advisor':
+          applicationModel = BatchAdvisorApplication;
+          break;
+        case 'semester_coordinator':
+          applicationModel = SemesterCoordinatorApplication;
+          break;
+        case 'other':
+          applicationModel = OtherApplication;
+          break;
+        case 'fyp_supervisor':
+          applicationModel = FYPSupervisorApplication;
+          break;
+        case 'associate_chairman':
+          applicationModel = AssociateChairmanApplication;
+          break;
+        case 'convener_disciplinary_committee':
+          applicationModel = ConvenerDisciplinaryCommitteeApplication;
+          break;
+        case 'convener_scholarship_committee':
+          applicationModel = ConvenerScholarshipCommitteeApplication;
+          break;
+        case 'coordinator':
+          applicationModel = CoordinatorApplication;
+          break;
+        case 'mid_exam_rearrangement_committee':
+          applicationModel = MidExamRearrangementCommitteeApplication;
+          break;
+        case 'all_faculty_members':
+          applicationModel = AllFacultyMembersApplication;
+          break;
+        case 'cms_operator':
+          applicationModel = CMSOperatorApplication;
+          break;
+        case 'office_assistant':
+          applicationModel = OfficeAssistantApplication;
+          break;  // Add cases for other roles as needed
+        default:
+          console.log('Unsupported user role:', userRole);
+          return res.status(404).json({ message: 'Application type not supported' });
+      }
+  
+      // Find the application by ID in the selected model
+      const application = await applicationModel.findById(applicationId);
+      if (!application) {
+        console.log('Application not found with ID:', applicationId);
+        return res.status(404).json({ message: 'Application not found' });
+      }
+  
+      // Move application to completed status
+      application.status = 'completed';
+      await application.save();
+  
+      console.log('Application accepted and moved to completed:', applicationId);
+      res.status(200).json({ message: 'Application accepted and moved to completed' });
+    } catch (error) {
+      console.error('Error accepting application:', error);
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  });
+  
+    app.get('/completed-applications', async (req, res) => {
+      try {
+        // Define an array of application models
+        const applicationModels = [
+          ChairmanApplication,
+          TeacherApplication,
+          BatchAdvisorApplication,
+          SemesterCoordinatorApplication,
+          OtherApplication,
+          FYPSupervisorApplication,
+          AssociateChairmanApplication,
+          ConvenerDisciplinaryCommitteeApplication,
+          ConvenerScholarshipCommitteeApplication,
+          CoordinatorApplication,
+          MidExamRearrangementCommitteeApplication,
+          AllFacultyMembersApplication,
+          CMSOperatorApplication,
+          OfficeAssistantApplication,
+        ];
+    
+        // Fetch completed applications from each model asynchronously
+        const fetchApplications = applicationModels.map(async (Model) => {
+          return await Model.find({ status: 'completed' });
+        });
+    
+        // Wait for all fetch operations to complete
+        const results = await Promise.all(fetchApplications);
+    
+        // Flatten the results into a single array
+        const completedApplications = results.flat();
+    
+        res.json(completedApplications);
+        console.log('Completed Applications:', completedApplications);
+      } catch (error) {
+        console.error('Error fetching completed applications:', error);
+        res.status(500).json({ message: 'Server error' });
+      }
+    });
+    
+    app.delete('/completed-applications/:id', async (req, res) => {
+      try {
+        const applicationId = req.params.id;
+        let deletedApplication = null;
+    
+        // Check each model to find and delete the application
+        const models = [
+          ChairmanApplication,
+          TeacherApplication,
+          BatchAdvisorApplication,
+          SemesterCoordinatorApplication,
+          OtherApplication,
+          FYPSupervisorApplication,
+          AssociateChairmanApplication,
+          ConvenerDisciplinaryCommitteeApplication,
+          ConvenerScholarshipCommitteeApplication,
+          CoordinatorApplication,
+          MidExamRearrangementCommitteeApplication,
+          AllFacultyMembersApplication,
+          CMSOperatorApplication,
+          OfficeAssistantApplication,
+        ];
+    
+        for (const Model of models) {
+          deletedApplication = await Model.findByIdAndDelete(applicationId);
+          if (deletedApplication) {
+            break; // Exit loop if application is found and deleted
+          }
+        }
+    
+        if (!deletedApplication) {
+          return res.status(404).json({ message: 'Application not found' });
+        }
+    
+        res.json({ message: 'Application deleted successfully' });
+      } catch (error) {
+        console.error('Error deleting application:', error);
+        res.status(500).json({ message: 'Server error' });
+      }
+    });
+
+
+    app.get('/pending-applications', async (req, res) => {
+      try {
+        const pendingApplications = await Promise.all([
+          ChairmanApplication.find({ status: 'pending' }),
+          TeacherApplication.find({ status: 'pending' }),
+          BatchAdvisorApplication.find({ status: 'pending' }),
+          SemesterCoordinatorApplication.find({ status: 'pending' }),
+          OtherApplication.find({ status: 'pending' }),
+          FYPSupervisorApplication.find({ status: 'pending' }),
+          AssociateChairmanApplication.find({ status: 'pending' }),
+          ConvenerDisciplinaryCommitteeApplication.find({ status: 'pending' }),
+          ConvenerScholarshipCommitteeApplication.find({ status: 'pending' }),
+          CoordinatorApplication.find({ status: 'pending' }),
+          MidExamRearrangementCommitteeApplication.find({ status: 'pending' }),
+          AllFacultyMembersApplication.find({ status: 'pending' }),
+          CMSOperatorApplication.find({ status: 'pending' }),
+          OfficeAssistantApplication.find({ status: 'pending' })
+        ]);
+    
+        // Transform the data to include sendTo and applicationType
+        const transformedApplications = pendingApplications.flat().map(application => ({
+          _id: application._id,
+          fullName: application.fullName,
+          registrationNumber: application.registrationNumber,
+          applicationType: application.applicationType,
+          sendTo: application.sendTo,
+          status: application.status,
+          submittedAt: application.submittedAt
+        }));
+    
+        res.json(transformedApplications);
+      } catch (error) {
+        console.error('Error fetching pending applications:', error);
+        res.status(500).json({ message: 'Server error' });
+      }
+    });
+    
+
+
+
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
