@@ -28,25 +28,6 @@ const FacultyCompletedApp = () => {
     fetchCompletedApplications();
   }, []);
 
-  // Function to handle application deletion
-  const deleteApplication = async (applicationId) => {
-    try {
-      const res = await axios.delete(`http://localhost:5000/completed-applications/${applicationId}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (res.status === 200) {
-        // Filter out the deleted application from state
-        const updatedApplications = applications.filter(app => app._id !== applicationId);
-        setApplications(updatedApplications);
-      }
-    } catch (error) {
-      console.error('Error deleting application:', error);
-    }
-  };
-
   return (
     <div className="h-screen bg-[#1F4887] flex">
       <div className="flex-none">
@@ -78,7 +59,7 @@ const FacultyCompletedApp = () => {
                   <button className="text-blue-500 hover:text-blue-700 mx-1">
                     <FontAwesomeIcon icon={faEdit} />
                   </button>
-                  <button className="text-red-500 hover:text-red-700 mx-1" onClick={() => deleteApplication(application._id)}>
+                  <button className="text-red-500 hover:text-red-700 mx-1">
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </td>

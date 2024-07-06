@@ -21,6 +21,8 @@ import FacultyCompletedApp from './components/FacultyCompletedApp';
 import FacultyPendingApp from './components/FacultyPendingApp';
 import FacultyStudentDetails from './components/FacultyStudentDetails';
 import TemplateSelection from './components/TempleteSelection';
+import StudentAppDetail from './components/StudentAppDetail';
+import AdminPie from './components/AdminPie';
 
 
 
@@ -57,6 +59,9 @@ function App() {
 <Route path='/FacultyPendingApp' element={<FacultyPendingApp/>}/>
 <Route path='/FacultyStudentDetails' element={<FacultyStudentDetails/>}/>
 
+
+<Route path='/StudentAppDetail' element={<StudentAppDetail/>}/>
+<Route path='/AdminPie' element={<AdminPie/>}/>
 
 
 

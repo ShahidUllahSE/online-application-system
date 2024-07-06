@@ -26,7 +26,12 @@ const Application2 = () => {
         message,
       });
       alert('Form submitted successfully:', res.data);
-      // Optionally, clear the form or show a success message
+      // Reset form fields
+      setFullName('');
+      setRegistrationNumber('');
+      setApplicationType('');
+      setSendTo('');
+      setMessage('');
     } catch (err) {
       console.error('Form submission error:', err.response.data);
       // Handle error, show error message, etc.

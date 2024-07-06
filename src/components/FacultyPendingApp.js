@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SideBar from './FacultySidebar';
+import { Link } from "react-router-dom";
 
 const FacultyPendingApp = () => {
   const [users, setUsers] = useState([]);
@@ -105,19 +106,6 @@ const FacultyPendingApp = () => {
     }
   };
 
-  // Function to handle rejecting an application
-  const handleReject = async (user) => {
-    try {
-      // Implement reject logic here if needed
-      alert(`Application rejected for ${user.fullName}`);
-      // Remove rejected application from users state
-      setUsers(users.filter(u => u._id !== user._id));
-    } catch (error) {
-      console.error('Error rejecting application:', error);
-      alert('Error rejecting application');
-    }
-  };
-
   // Function to handle role change
   const handleRoleChange = (newRole) => {
     setRole(newRole);
@@ -135,7 +123,6 @@ const FacultyPendingApp = () => {
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application Type</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registration Number</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Send To</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted At</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
@@ -146,11 +133,13 @@ const FacultyPendingApp = () => {
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.fullName}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.applicationType}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.registrationNumber}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.sentTo}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{new Date(user.submittedAt).toLocaleString()}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                 <button className="mr-2 px-3 py-1 bg-green-500 text-white rounded-md focus:outline-none" onClick={() => handleAccept(user)}>Accept</button>
-                <button className="px-3 py-1 bg-red-500 text-white rounded-md focus:outline-none" onClick={() => handleReject(user)}>Reject</button>
+                {/* Pass user object to StudentAppDetail */}
+                <Link to={`/StudentAppDetail?fullName=${user.fullName}&registrationNumber=${user.registrationNumber}&applicationTitle=${user.applicationTitle}&applicationType=${user.applicationType}&attachedFile=${user.attachedFile}&_id=${user._id}`}>
+                  <button className="px-3 py-1 bg-red-500 text-white rounded-md focus:outline-none">Edit</button>
+                </Link>
               </td>
             </tr>
           ))}
