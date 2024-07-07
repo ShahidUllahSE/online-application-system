@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SideBar from './SideBar';
-import UserData from './UsersData'; // Assuming this component correctly displays user data
 
-const API = "http://localhost:5000/completed-applications";
+const API_COMPLETED = "http://localhost:5000/api/completed-applications";
 
 const Completed_Applications = () => {
   const [applications, setApplications] = useState([]);
 
   const fetchCompletedApplications = async () => {
     try {
-      const res = await axios.get(API,
-        
-      );
+      const res = await axios.get(API_COMPLETED, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}` // Send JWT token in headers
+        }
+      });
       const data = res.data;
-      if (data.length > 0) {
-        setApplications(data);
-      }
-      console.log(data);
-    } catch (e) {
-      console.error(e);
+      setApplications(data);
+    } catch (error) {
+      console.error('Error fetching completed applications:', error);
     }
   };
 
@@ -32,9 +30,9 @@ const Completed_Applications = () => {
       <div>
         <SideBar />
       </div>
-      <div className="bg-[#1F4887] flex flex-col -mt-[550px] items-center justify-center">
+      <div className="bg-[#1F4887] flex -mt-[530px] flex-col items-center justify-center">
         <div className="flex-grow p-4 flex items-center justify-center w-full">
-          <table className="w-full max-w-4xl  ml-44 border border-gray-200 rounded-lg shadow-sm">
+          <table className="w-full max-w-4xl ml-44 border border-gray-200 rounded-lg shadow-sm">
             <thead className="bg-gray-300">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>

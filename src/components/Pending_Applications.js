@@ -2,20 +2,18 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SideBar from './SideBar';
 
-const API = "http://localhost:5000/pending-applications";
+const API_PENDING = "http://localhost:5000/api/pending-applications";
 
 const Pending_Applications = () => {
-  const [applications, setApplications] = useState([]);
+  const [pendingApplications, setPendingApplications] = useState([]);
 
   const fetchPendingApplications = async () => {
     try {
-      const res = await axios.get(API);
+      const res = await axios.get(API_PENDING);
       const data = res.data;
-      if (data.length > 0) {
-        setApplications(data);
-      }
-    } catch (e) {
-      console.error(e);
+      setPendingApplications(data);
+    } catch (error) {
+      console.error('Error fetching pending applications:', error);
     }
   };
 
@@ -42,7 +40,7 @@ const Pending_Applications = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {applications.map(application => (
+              {pendingApplications.map(application => (
                 <tr key={application._id}>
                   <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{application.fullName}</td>
                   <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">{application.registrationNumber}</td>

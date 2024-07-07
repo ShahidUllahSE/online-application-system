@@ -10,7 +10,7 @@ const FacultyCompletedApp = () => {
 
   const fetchCompletedApplications = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/completed-applications', {
+      const res = await axios.get('http://localhost:5000/api/completed-applications', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -21,6 +21,27 @@ const FacultyCompletedApp = () => {
       }
     } catch (error) {
       console.error('Error fetching completed applications:', error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await axios.delete(`http://localhost:5000/api/completed-applications/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (res.status === 200) {
+        // Update applications state to reflect the deletion
+        setApplications(applications.filter(app => app._id !== id));
+        alert('Application deleted successfully');
+      } else {
+        alert('Failed to delete application');
+      }
+    } catch (error) {
+      console.error('Error deleting application:', error);
+      alert('Failed to delete application');
     }
   };
 
@@ -59,7 +80,10 @@ const FacultyCompletedApp = () => {
                   <button className="text-blue-500 hover:text-blue-700 mx-1">
                     <FontAwesomeIcon icon={faEdit} />
                   </button>
-                  <button className="text-red-500 hover:text-red-700 mx-1">
+                  <button
+                    className="text-red-500 hover:text-red-700 mx-1"
+                    onClick={() => handleDelete(application._id)}
+                  >
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </td>

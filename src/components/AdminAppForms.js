@@ -1,48 +1,46 @@
+// AdminAppForms.js
+
 import React, { useEffect, useState } from 'react';
-import AdminSideBar from './AdminSideBar.js';
+import AdminSideBar from './AdminSideBar'; // Adjust path as needed
 
 const AdminAppForms = () => {
   const [applications, setApplications] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchApplications = async () => {
     try {
-      // Fetch applications from all relevant endpoints
-      const chairmanRes = await fetch('http://localhost:5000/api/chairman-applications');
-      const batchAdvisorRes = await fetch('http://localhost:5000/api/batch-advisor-applications');
-      const teacherRes = await fetch('http://localhost:5000/api/teacher-applications');
-      const semesterCoordinatorRes = await fetch('http://localhost:5000/api/semester-coordinator-applications');
-      const otherRes = await fetch('http://localhost:5000/api/other-applications');
+      const completedResponse = await fetch('http://localhost:5000/api/completed-applications');
+      const pendingResponse = await fetch('http://localhost:5000/api/pending-applications');
 
-      // Check if any fetch request fails
-      if (!chairmanRes.ok || !batchAdvisorRes.ok || !teacherRes.ok || !semesterCoordinatorRes.ok || !otherRes.ok) {
+      if (!completedResponse.ok || !pendingResponse.ok) {
         throw new Error('Failed to fetch application data');
       }
 
-      // Parse response data and add 'Sent To' and 'Status' properties
-      const chairmanData = await chairmanRes.json();
-      const batchAdvisorData = await batchAdvisorRes.json();
-      const teacherData = await teacherRes.json();
-      const semesterCoordinatorData = await semesterCoordinatorRes.json();
-      const otherData = await otherRes.json();
+      const completedData = await completedResponse.json();
+      const pendingData = await pendingResponse.json();
 
-      const allApplications = [
-        ...chairmanData.map(app => ({ ...app, sendTo: 'Chairman', status: 'Pending' })),
-        ...batchAdvisorData.map(app => ({ ...app, sendTo: 'Batch Advisor', status: 'Pending' })),
-        ...teacherData.map(app => ({ ...app, sendTo: 'Teacher', status: 'Pending' })),
-        ...semesterCoordinatorData.map(app => ({ ...app, sendTo: 'Semester Coordinator', status: 'Pending' })),
-        ...otherData.map(app => ({ ...app, sendTo: 'Other', status: 'Pending' })),
-      ];
-
-      // Set the combined data to state
+      const allApplications = [...completedData, ...pendingData];
       setApplications(allApplications);
     } catch (error) {
       console.error('Error fetching applications:', error);
+      setError('Failed to fetch application data');
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchApplications();
   }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="h-screen flex bg-[#1F4887]">

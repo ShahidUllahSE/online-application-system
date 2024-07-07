@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const FacultyPendingApp = () => {
   const [users, setUsers] = useState([]);
-  const [role, setRole] = useState('');
+  const [acceptedUsers, setAcceptedUsers] = useState(new Set());
   const username = localStorage.getItem('username');
   console.log('Logged in as:', username);
 
@@ -75,10 +75,23 @@ const FacultyPendingApp = () => {
     }
   };
 
-  // Fetch pending applications on component mount
+  // Function to fetch accepted applications IDs from localStorage on component mount
+  useEffect(() => {
+    const acceptedUsersStorage = localStorage.getItem('acceptedUsers');
+    if (acceptedUsersStorage) {
+      setAcceptedUsers(new Set(JSON.parse(acceptedUsersStorage)));
+    }
+  }, []);
+
+  // Function to save accepted applications IDs to localStorage
+  useEffect(() => {
+    localStorage.setItem('acceptedUsers', JSON.stringify([...acceptedUsers]));
+  }, [acceptedUsers]);
+
+  // Fetch pending applications on component mount and whenever users or username changes
   useEffect(() => {
     fetchPendingApplications();
-  }, [username]);
+  }, [username, users]); // Trigger on changes to username or users state
 
   // Function to handle accepting an application
   const handleAccept = async (user) => {
@@ -86,6 +99,7 @@ const FacultyPendingApp = () => {
     const userRole = localStorage.getItem('username');
 
     try {
+      // Make the request to accept the application
       await axios.put(
         `http://localhost:5000/accept-application/${user._id}`,
         {},
@@ -97,18 +111,21 @@ const FacultyPendingApp = () => {
         }
       );
 
+      // Update local state to remove the accepted application
+      setUsers(users => users.filter(u => u._id !== user._id));
+      setAcceptedUsers(new Set([...acceptedUsers, user._id]));
+
+      // Show a success message to the user
       alert('Application accepted and moved to completed');
-      // Remove accepted application from users state
-      setUsers(users.filter(u => u._id !== user._id));
     } catch (error) {
       console.error('Error accepting application:', error);
       alert('Error accepting application');
     }
   };
 
-  // Function to handle role change
+  // Function to handle role change (if needed)
   const handleRoleChange = (newRole) => {
-    setRole(newRole);
+    // Handle role change logic here if needed
   };
 
   return (
@@ -123,6 +140,7 @@ const FacultyPendingApp = () => {
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application Type</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registration Number</th>
+
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted At</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
@@ -133,13 +151,20 @@ const FacultyPendingApp = () => {
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.fullName}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.applicationType}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.registrationNumber}</td>
+
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{new Date(user.submittedAt).toLocaleString()}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                <button className="mr-2 px-3 py-1 bg-green-500 text-white rounded-md focus:outline-none" onClick={() => handleAccept(user)}>Accept</button>
-                {/* Pass user object to StudentAppDetail */}
-                <Link to={`/StudentAppDetail?fullName=${user.fullName}&registrationNumber=${user.registrationNumber}&applicationTitle=${user.applicationTitle}&applicationType=${user.applicationType}&attachedFile=${user.attachedFile}&_id=${user._id}`}>
-                  <button className="px-3 py-1 bg-red-500 text-white rounded-md focus:outline-none">Edit</button>
-                </Link>
+                {!acceptedUsers.has(user._id) && (
+                  <>
+                    <button className="mr-2 px-3 py-1 bg-green-500 text-white rounded-md focus:outline-none" onClick={() => handleAccept(user)}>Accept</button>
+                    <Link to={`/StudentAppDetail?fullName=${user.fullName}&registrationNumber=${user.registrationNumber}&applicationTitle=${user.applicationTitle}&applicationType=${user.applicationType}&attachedFile=${user.attachedFile}&_id=${user._id}`}>
+                      <button className="px-3 py-1 bg-red-500 text-white rounded-md focus:outline-none">Edit</button>
+                    </Link>
+                  </>
+                )}
+                {acceptedUsers.has(user._id) && (
+                  <span className="text-sm text-gray-500">Accepted</span>
+                )}
               </td>
             </tr>
           ))}

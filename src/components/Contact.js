@@ -73,7 +73,7 @@ const Contact = () => {
             <div>
               <label htmlFor="email" className="text-sm">Email:</label>
               <input
-                type="text"
+                type="email"
                 name="email"
                 placeholder="Your Email Address..."
                 value={email}

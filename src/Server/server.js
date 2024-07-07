@@ -528,10 +528,8 @@ app.put('/accept-application/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
-
-app.get('/completed-applications', async (req, res) => {
+app.get('/api/completed-applications', async (req, res) => {
   try {
-    // Define an array of application models
     const applicationModels = [
       ChairmanApplication,
       TeacherApplication,
@@ -546,18 +544,15 @@ app.get('/completed-applications', async (req, res) => {
       MidExamRearrangementCommitteeApplication,
       AllFacultyMembersApplication,
       CMSOperatorApplication,
-      OfficeAssistantApplication,
+      OfficeAssistantApplication
+      // Add more as needed
     ];
 
-    // Fetch completed applications from each model asynchronously
     const fetchApplications = applicationModels.map(async (Model) => {
       return await Model.find({ status: 'completed' });
     });
 
-    // Wait for all fetch operations to complete
     const results = await Promise.all(fetchApplications);
-
-    // Flatten the results into a single array
     const completedApplications = results.flat();
 
     res.json(completedApplications);
@@ -568,27 +563,58 @@ app.get('/completed-applications', async (req, res) => {
   }
 });
 
-app.delete('/completed-applications/:id', async (req, res) => {
+
+app.get('/api/pending-applications', async (req, res) => {
+  try {
+    const pendingApplications = await Promise.all([
+      ChairmanApplication.find({ status: 'pending' }),
+      TeacherApplication.find({ status: 'pending' }),
+      BatchAdvisorApplication.find({ status: 'pending' }),
+      SemesterCoordinatorApplication.find({ status: 'pending' }),
+      OtherApplication.find({ status: 'pending' }),
+      FYPSupervisorApplication.find({ status: 'pending' }),
+      AssociateChairmanApplication.find({ status: 'pending' }),
+      ConvenerDisciplinaryCommitteeApplication.find({ status: 'pending' }),
+      ConvenerScholarshipCommitteeApplication.find({ status: 'pending' }),
+      CoordinatorApplication.find({ status: 'pending' }),
+      MidExamRearrangementCommitteeApplication.find({ status: 'pending' }),
+      AllFacultyMembersApplication.find({ status: 'pending' }),
+      CMSOperatorApplication.find({ status: 'pending' }),
+      OfficeAssistantApplication.find({ status: 'pending' }),
+      // Add more as needed
+    ]);
+
+    const transformedApplications = pendingApplications.flat().map(application => ({
+      _id: application._id,
+      fullName: application.fullName,
+      registrationNumber: application.registrationNumber,
+      applicationType: application.applicationType,
+      sendTo: application.sendTo,
+      status: application.status,
+      submittedAt: application.submittedAt
+    }));
+
+    res.json(transformedApplications);
+  } catch (error) {
+    console.error('Error fetching pending applications:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
+app.delete('/api/completed-applications/:id', async (req, res) => {
   try {
     const applicationId = req.params.id;
     let deletedApplication = null;
 
-    // Check each model to find and delete the application
     const models = [
       ChairmanApplication,
       TeacherApplication,
       BatchAdvisorApplication,
       SemesterCoordinatorApplication,
-      OtherApplication,
-      FYPSupervisorApplication,
-      AssociateChairmanApplication,
-      ConvenerDisciplinaryCommitteeApplication,
-      ConvenerScholarshipCommitteeApplication,
-      CoordinatorApplication,
-      MidExamRearrangementCommitteeApplication,
-      AllFacultyMembersApplication,
-      CMSOperatorApplication,
-      OfficeAssistantApplication,
+      OtherApplication
+      // Add more as needed
     ];
 
     for (const Model of models) {
@@ -605,43 +631,6 @@ app.delete('/completed-applications/:id', async (req, res) => {
     res.json({ message: 'Application deleted successfully' });
   } catch (error) {
     console.error('Error deleting application:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
-
-app.get('/pending-applications', async (req, res) => {
-  try {
-    const pendingApplications = await Promise.all([
-      ChairmanApplication.find({ status: 'pending' }),
-      TeacherApplication.find({ status: 'pending' }),
-      BatchAdvisorApplication.find({ status: 'pending' }),
-      SemesterCoordinatorApplication.find({ status: 'pending' }),
-      OtherApplication.find({ status: 'pending' }),
-      FYPSupervisorApplication.find({ status: 'pending' }),
-      AssociateChairmanApplication.find({ status: 'pending' }),
-      ConvenerDisciplinaryCommitteeApplication.find({ status: 'pending' }),
-      ConvenerScholarshipCommitteeApplication.find({ status: 'pending' }),
-      CoordinatorApplication.find({ status: 'pending' }),
-      MidExamRearrangementCommitteeApplication.find({ status: 'pending' }),
-      AllFacultyMembersApplication.find({ status: 'pending' }),
-      CMSOperatorApplication.find({ status: 'pending' }),
-      OfficeAssistantApplication.find({ status: 'pending' })
-    ]);
-
-    // Transform the data to include sendTo and applicationType
-    const transformedApplications = pendingApplications.flat().map(application => ({
-      _id: application._id,
-      fullName: application.fullName,
-      registrationNumber: application.registrationNumber,
-      applicationType: application.applicationType, // Ensure this field is included
-      sendTo: application.sendTo,
-      status: application.status,
-      submittedAt: application.submittedAt
-    }));
-    res.json(transformedApplications);
-  } catch (error) {
-    console.error('Error fetching pending applications:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -752,6 +741,14 @@ app.get('/api/application-counts', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
+
+
+
+
+
+
 
 
 // Start server
