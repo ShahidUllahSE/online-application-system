@@ -9,6 +9,9 @@ const ChairmanApplicationSchema = new mongoose.Schema({
   message: { type: String, required: true },
   remark: { type: String }, // Add the remark field here
   semester: { type: String }, // Use mongoose.Schema.Types.Mixed for flexibility
+  paperNumber:{type:String},
+  fypChangeReason:{type : String},
+  paperName:{type : String},
 
 
   submittedAt: { type: Date, default: Date.now },

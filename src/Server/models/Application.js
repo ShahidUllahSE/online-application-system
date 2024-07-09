@@ -8,6 +8,9 @@ const applicationSchema = new mongoose.Schema({
   message: String,
   username: String, // Add this field
   additionalField: string, // Flexible field to store additional data
+  paperNumber:{type:String},
+  paperName:{type : String},
+
 
   status: { type: String, default: 'Pending' },
 });

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import SideBar from './SideBar';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
-
+import { useNavigate } from 'react-router-dom';
 
 const Application2 = () => {
   const [fullName, setFullName] = useState('');
@@ -11,10 +10,13 @@ const Application2 = () => {
   const [sendTo, setSendTo] = useState('');
   const [message, setMessage] = useState('');
   const [semester, setSemester] = useState('');
+  const [paperNumber, setPaperNumber] = useState('');
+  const [paperName, setPaperName] = useState('');
+  const [fypChangeReason, setFypChangeReason] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent page refresh
+    e.preventDefault();
 
     if (!fullName || !registrationNumber || !applicationType || !sendTo || !message) {
       alert('Please fill in all fields');
@@ -29,23 +31,26 @@ const Application2 = () => {
         sendTo,
         message,
         semester,
+        paperNumber,
+        paperName,
+        fypChangeReason,
       });
       alert('Form submitted successfully:', res.data);
-      navigate('/ApplicationSubmitted'); // Navigate to /ApplicationSubmitted page
-      // Reset form fields
+      navigate('/ApplicationSubmitted');
       setFullName('');
       setRegistrationNumber('');
       setApplicationType('');
       setSendTo('');
       setMessage('');
       setSemester('');
+      setPaperNumber('');
+      setPaperName('');
+      setFypChangeReason('');
     } catch (err) {
       console.error('Form submission error:', err.response.data);
-      // Handle error, show error message, etc.
     }
   };
 
-  // Function to dynamically render additional field based on applicationType
   const renderAdditionalField = () => {
     if (applicationType === 'Freezing Semester') {
       return (
@@ -55,10 +60,59 @@ const Application2 = () => {
           </label>
           <input
             id="semester"
+            type="text"
             className="w-60 border bg-gray-300 rounded-lg p-2"
             placeholder="Enter semester number"
             value={semester}
             onChange={(e) => setSemester(e.target.value)}
+          />
+        </div>
+      );
+    } else if (applicationType === 'Paper Cancellation') {
+      return (
+        <div className="mb-4 mt-4">
+          <label htmlFor="paperNumber" className="block text-gray-700 text-sm font-bold mb-2">
+            Paper Number
+          </label>
+          <input
+            id="paperNumber"
+            type="text"
+            className="w-60 border bg-gray-300 rounded-lg p-2"
+            placeholder="Enter paper number"
+            value={paperNumber}
+            onChange={(e) => setPaperNumber(e.target.value)}
+          />
+        </div>
+      );
+    } else if (applicationType === 'Paper Rechecking') {
+      return (
+        <div className="mb-4 mt-4">
+          <label htmlFor="paperName" className="block text-gray-700 text-sm font-bold mb-2">
+            Paper Name
+          </label>
+          <input
+            id="paperName"
+            type="text"
+            className="w-60 border bg-gray-300 rounded-lg p-2"
+            placeholder="Enter paper name"
+            value={paperName}
+            onChange={(e) => setPaperName(e.target.value)}
+          />
+        </div>
+      );
+    } else if (applicationType === 'Change FYP') {
+      return (
+        <div className="mb-4 mt-4">
+          <label htmlFor="fypChangeReason" className="block text-gray-700 text-sm font-bold mb-2">
+            Reason for Change
+          </label>
+          <input
+            id="fypChangeReason"
+            type="text"
+            className="w-60 border bg-gray-300 rounded-lg p-2"
+            placeholder="Enter reason for changing FYP"
+            value={fypChangeReason}
+            onChange={(e) => setFypChangeReason(e.target.value)}
           />
         </div>
       );
@@ -67,36 +121,10 @@ const Application2 = () => {
   };
 
   return (
-    <div className="h-screen mt-3 bg-[#1F4887]">
+    <div className="h-screen -mt-3 bg-[#1F4887]">
       <div className="h-auto">
-        <button
-          data-drawer-target="default-sidebar"
-          data-drawer-toggle="default-sidebar"
-          aria-controls="default-sidebar"
-          type="button"
-          className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-        >
-          <span className="sr-only">Open sidebar</span>
-          <svg
-            className="w-6 h-6"
-            aria-hidden="true"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clipRule="evenodd"
-              fillRule="evenodd"
-              d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-            ></path>
-          </svg>
-        </button>
-
-        <div className='-ml-4 -mt-3'>
-          <SideBar />
-        </div>
-
-        <div className="flex justify-center -mt-[590px] pt-16 items-center h-auto bg-[#1F4887]">
+        <SideBar />
+        <div className="flex justify-center -mt-[620px] pt-16 items-center h-auto bg-[#1F4887]">
           <form className="bg-white ml-52 h-[500px] w-[650px] p-8 rounded-lg -mt-8 shadow-md" onSubmit={handleSubmit}>
             <h1 className="text-3xl font-bold font-serif pb-4 ml-16">Online Application Form</h1>
             <div>
@@ -137,8 +165,10 @@ const Application2 = () => {
                 value={applicationType}
                 onChange={(e) => {
                   setApplicationType(e.target.value);
-                  // Reset additionalField when application type changes
                   setSemester('');
+                  setPaperNumber('');
+                  setPaperName('');
+                  setFypChangeReason('');
                 }}
               >
                 <option value="">Choose Application Type</option>

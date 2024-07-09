@@ -10,6 +10,9 @@ const BatchAdvisorApplicationSchema = new mongoose.Schema({
   submittedAt: { type: Date, default: Date.now },
   remark: { type: String }, // Add the remark field here
   semester: { type: String }, // Use mongoose.Schema.Types.Mixed for flexibility
+  paperNumber:{type:String},
+  paperName:{type : String},
+  fypChangeReason:{type : String},
 
   status:{
     type:String,

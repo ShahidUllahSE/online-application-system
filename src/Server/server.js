@@ -141,7 +141,7 @@ app.post('/api/auth/login', async (req, res) => {
 app.get('/api/chairman-applications', async (req, res) => {
   try {
     // Include the 'message' field in the projection
-    const applications = await ChairmanApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester');
+    const applications = await ChairmanApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching chairman applications:', error);
@@ -151,7 +151,7 @@ app.get('/api/chairman-applications', async (req, res) => {
 
 app.get('/api/teacher-applications', async (req, res) => {
   try {
-    const applications = await TeacherApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester');
+    const applications = await TeacherApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching teacher applications:', error);
@@ -161,7 +161,7 @@ app.get('/api/teacher-applications', async (req, res) => {
 
 app.get('/api/batch-advisor-applications', async (req, res) => {
   try {
-    const applications = await BatchAdvisorApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester');
+    const applications = await BatchAdvisorApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching batch advisor applications:', error);
@@ -171,7 +171,7 @@ app.get('/api/batch-advisor-applications', async (req, res) => {
 
 app.get('/api/semester-coordinator-applications', async (req, res) => {
   try {
-    const applications = await SemesterCoordinatorApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester');
+    const applications = await SemesterCoordinatorApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching semester coordinator applications:', error);
@@ -181,7 +181,7 @@ app.get('/api/semester-coordinator-applications', async (req, res) => {
 
 app.get('/api/other-applications', async (req, res) => {
   try {
-    const applications = await OtherApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester');
+    const applications = await OtherApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching other applications:', error);
@@ -193,7 +193,7 @@ app.get('/api/other-applications', async (req, res) => {
 
 app.get('/api/fyp-supervisor-applications', async (req, res) => {
   try {
-    const applications = await FYPSupervisorApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester');
+    const applications = await FYPSupervisorApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching FYP Supervisor applications:', error);
@@ -203,7 +203,7 @@ app.get('/api/fyp-supervisor-applications', async (req, res) => {
 
 app.get('/api/associate-chairman-applications', async (req, res) => {
   try {
-    const applications = await AssociateChairmanApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester');
+    const applications = await AssociateChairmanApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester paperNumber fypChangeReason paperName ');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching Associate Chairman applications:', error);
@@ -213,7 +213,7 @@ app.get('/api/associate-chairman-applications', async (req, res) => {
 
 app.get('/api/convener-disciplinary-committee-applications', async (req, res) => {
   try {
-    const applications = await ConvenerDisciplinaryCommitteeApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester');
+    const applications = await ConvenerDisciplinaryCommitteeApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching Convener Disciplinary Committee applications:', error);
@@ -223,7 +223,7 @@ app.get('/api/convener-disciplinary-committee-applications', async (req, res) =>
 
 app.get('/api/convener-scholarship-committee-applications', async (req, res) => {
   try {
-    const applications = await ConvenerScholarshipCommitteeApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester');
+    const applications = await ConvenerScholarshipCommitteeApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching Convener Scholarship Committee applications:', error);
@@ -233,7 +233,7 @@ app.get('/api/convener-scholarship-committee-applications', async (req, res) => 
 
 app.get('/api/coordinator-applications', async (req, res) => {
   try {
-    const applications = await CoordinatorApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester');
+    const applications = await CoordinatorApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching Coordinator applications:', error);
@@ -243,7 +243,7 @@ app.get('/api/coordinator-applications', async (req, res) => {
 
 app.get('/api/mid-exam-rearrangement-committee-applications', async (req, res) => {
   try {
-    const applications = await MidExamRearrangementCommitteeApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester');
+    const applications = await MidExamRearrangementCommitteeApplication.find({}, 'fullName applicationType sendTo registrationNumber submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching Mid Exam Rearrangement Committee applications:', error);
@@ -253,7 +253,7 @@ app.get('/api/mid-exam-rearrangement-committee-applications', async (req, res) =
 
 app.get('/api/all-faculty-members-applications', async (req, res) => {
   try {
-    const applications = await AllFacultyMembersApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester');
+    const applications = await AllFacultyMembersApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching All Faculty Members applications:', error);
@@ -263,7 +263,7 @@ app.get('/api/all-faculty-members-applications', async (req, res) => {
 
 app.get('/api/cms-operator-applications', async (req, res) => {
   try {
-    const applications = await CMSOperatorApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester');
+    const applications = await CMSOperatorApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching CMS Operator applications:', error);
@@ -273,7 +273,7 @@ app.get('/api/cms-operator-applications', async (req, res) => {
 
 app.get('/api/office-assistant-applications', async (req, res) => {
   try {
-    const applications = await OfficeAssistantApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester');
+    const applications = await OfficeAssistantApplication.find({}, 'fullName applicationType registrationNumber sendTo submittedAt message remark semester paperNumber fypChangeReason paperName');
     res.json(applications);
   } catch (error) {
     console.error('Error fetching Office Assistant applications:', error);
@@ -286,7 +286,7 @@ app.get('/api/office-assistant-applications', async (req, res) => {
 
 // Route to handle different types of applications
 app.post('/api/applications', async (req, res) => {
-  const { fullName, registrationNumber, applicationType, sendTo, message, username, semester } = req.body;
+  const { fullName, registrationNumber, applicationType, sendTo, message, username, semester,paperNumber,fypChangeReason,paperName } = req.body;
 
   try {
     let ApplicationModel;
@@ -337,7 +337,7 @@ app.post('/api/applications', async (req, res) => {
         return res.status(400).send('Invalid recipient');
     }
 
-    await ApplicationModel.create({ fullName, registrationNumber, applicationType, sendTo, message, username, semester });
+    await ApplicationModel.create({ fullName, registrationNumber, applicationType, sendTo, message, username, semester,paperNumber,fypChangeReason,paperName });
 
     res.status(201).send(`${sendTo} application submitted successfully`);
   } catch (error) {
@@ -393,7 +393,7 @@ app.put('/api/roles/:id', async (req, res) => {
 
 
 app.post('/api/applications', async (req, res) => {
-  const { fullName, registrationNumber, applicationType, sendTo, message, username, semester} = req.body;
+  const { fullName, registrationNumber, applicationType, sendTo, message, username, semester,paperNumber,fypChangeReason,paperName} = req.body;
 
   try {
     let ApplicationModel;
@@ -444,7 +444,7 @@ app.post('/api/applications', async (req, res) => {
         return res.status(400).send('Invalid recipient');
     }
 
-    await ApplicationModel.create({ fullName, registrationNumber, applicationType, sendTo, message, username,semester });
+    await ApplicationModel.create({ fullName, registrationNumber, applicationType, sendTo, message, username,semester,paperNumber,fypChangeReason });
 
     res.status(201).send(`${sendTo} application submitted successfully`);
   } catch (error) {
@@ -616,8 +616,16 @@ app.delete('/api/completed-applications/:id', async (req, res) => {
       TeacherApplication,
       BatchAdvisorApplication,
       SemesterCoordinatorApplication,
-      OtherApplication
-      // Add more as needed
+      OtherApplication,
+      FYPSupervisorApplication,
+      AssociateChairmanApplication,
+      ConvenerDisciplinaryCommitteeApplication,
+      ConvenerScholarshipCommitteeApplication,
+      CoordinatorApplication,
+      MidExamRearrangementCommitteeApplication,
+      AllFacultyMembersApplication,
+      CMSOperatorApplication,
+      OfficeAssistantApplication
     ];
 
     for (const Model of models) {
@@ -641,7 +649,7 @@ app.delete('/api/completed-applications/:id', async (req, res) => {
 // Handle PUT request to update application based on user role
 app.put('/api/update-application/:id', async (req, res) => {
   const { id } = req.params;
-  const { forwardTo, semester } = req.body;
+  const { forwardTo, semester,paperNumber,fypChangeReason,paperName } = req.body;
   const userRole = req.headers.userrole;
 
   try {
@@ -679,7 +687,9 @@ app.put('/api/update-application/:id', async (req, res) => {
     }
 
     application.semester = semester;
-
+    application.paperNumber=paperNumber;
+    application.fypChangeReason=fypChangeReason
+    application.paperName=paperName;
     const newApplication = new targetApplicationModel(application.toObject());
     newApplication._id = undefined;
     await newApplication.save();

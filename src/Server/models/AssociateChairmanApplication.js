@@ -11,7 +11,11 @@ const AssociateChairmanApplicationSchema = new mongoose.Schema({
   semester: { type: String }, // Use mongoose.Schema.Types.Mixed for flexibility
   remark: { type: String }, // Add the remark field here
 
-  
+  paperNumber:{type:String},
+  paperName:{type : String},
+  fypChangeReason:{type : String},
+
+
 
   status: {
     type: String,

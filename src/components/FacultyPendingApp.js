@@ -126,11 +126,11 @@ const FacultyPendingApp = () => {
 
   return (
     <div className="h-screen bg-[#1F4887] flex items-center justify-center">
-      <div className="-ml-28">
+      <div className="">
         <SideBar onRoleChange={handleRoleChange} />
       </div>
 
-      <table className="w-full max-w-4xl -mt-24 ml-8 border border-gray-200 rounded-lg shadow-sm">
+      <table className="w-full max-w-4xl -mt-2 ml-2 border border-gray-200 rounded-lg shadow-sm">
         <thead className="bg-gray-300">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
@@ -153,9 +153,10 @@ const FacultyPendingApp = () => {
                 {!acceptedUsers.has(user._id) && (
                   <>
                     <button className="mr-2 px-3 py-1 bg-green-500 text-white rounded-md focus:outline-none" onClick={() => handleAccept(user)}>Accept</button>
-                    <Link to={`/StudentAppDetail?fullName=${user.fullName}&registrationNumber=${user.registrationNumber}&applicationTitle=${user.applicationTitle}&applicationType=${user.applicationType}&message=${user.message}&semester=${user.semester}&_id=${user._id}`}>
-                      <button className="px-3 py-1 bg-red-500 text-white rounded-md focus:outline-none">Process</button>
-                    </Link>
+                    <Link to={`/StudentAppDetail?fullName=${user.fullName}&registrationNumber=${user.registrationNumber}&applicationTitle=${user.applicationTitle}&applicationType=${user.applicationType}&message=${user.message}&semester=${user.semester}&_id=${user._id}&paperNumber=${user.paperNumber}&fypChangeReason=${user.fypChangeReason}&paperName=${user.paperName}`}>
+  <button className="px-3 py-1 bg-red-500 text-white rounded-md focus:outline-none">Process</button>
+</Link>
+
                   </>
                 )}
                 {acceptedUsers.has(user._id) && (

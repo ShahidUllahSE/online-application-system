@@ -3,45 +3,63 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import FacultySidebar from './FacultySidebar';
 
-
 const StudentAppDetail = () => {
-  const navigate=useNavigate();
-
+  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const user = {
-    fullName: queryParams.get('fullName') || '',
-    registrationNumber: queryParams.get('registrationNumber') || '',
-    message: queryParams.get('message') || '',
-    applicationType: queryParams.get('applicationType') || '',
-    semester: queryParams.get('semester') || '', // Fetch additionalField from query params
-    _id: queryParams.get('_id') || ''
-  };
+
+  const [user, setUser] = useState({
+    fullName: '',
+    registrationNumber: '',
+    message: '',
+    applicationType: '',
+    paperNumber: '',
+    paperName: '', // New state for paperName
+    semester: '',
+    _id: ''
+  });
+
   const [forwardTo, setForwardTo] = useState('');
   const [additionalFieldLabel, setAdditionalFieldLabel] = useState('');
   const token = localStorage.getItem('token');
   const userRole = localStorage.getItem('username');
 
   useEffect(() => {
+    setUser({
+      fullName: queryParams.get('fullName') || '',
+      registrationNumber: queryParams.get('registrationNumber') || '',
+      message: queryParams.get('message') || '',
+      applicationType: queryParams.get('applicationType') || '',
+      paperNumber: queryParams.get('paperNumber') || '',
+      paperName: queryParams.get('paperName') || '', // Set paperName from query params
+      semester: queryParams.get('semester') || '',
+      _id: queryParams.get('_id') || ''
+    });
+
     // Update the additionalFieldLabel based on the applicationType
-    switch (user.applicationType) {
-      case 'type1':
-        setAdditionalFieldLabel('Additional Info for Type 1');
+    switch (queryParams.get('applicationType')) {
+      case 'Freezing Semester':
+        setAdditionalFieldLabel('Semester');
         break;
-      case 'type2':
-        setAdditionalFieldLabel('Additional Info for Type 2');
+      case 'Paper Cancellation':
+        setAdditionalFieldLabel('Paper Number');
         break;
-      // Add more cases as needed for different application types
+      case 'Paper Rechecking':
+        setAdditionalFieldLabel('Paper Name'); // Update label for Paper Rechecking
+        break;
+      case 'Change FYP':
+        setAdditionalFieldLabel('Reason for Change');
+        break;
       default:
         setAdditionalFieldLabel('Additional Info');
     }
-  }, [user.applicationType]);
+  }, [location.search]);
 
   const handleSubmit = async () => {
     try {
       await axios.put(
         `http://localhost:5000/api/update-application/${user._id}`,
-        { forwardTo, additionalField: user.semester },
+        { forwardTo, additionalField: user.semester || user.paperNumber || user.paperName || user.message }, // Include paperName
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -51,8 +69,7 @@ const StudentAppDetail = () => {
       );
 
       alert('Application updated successfully');
-      navigate('/ForwardApplication')
-
+      navigate('/ForwardApplication');
     } catch (error) {
       console.error('Error updating application:', error);
       alert('Error updating application');
@@ -61,7 +78,7 @@ const StudentAppDetail = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-blue-900">
-      <div className='-ml-[560px] -mt-[2px]'>
+      <div className="-ml-[560px] -mt-[2px]">
         <FacultySidebar />
       </div>
       <div className="bg-white p-10 rounded-lg shadow-lg ml-12 h-auto max-w-5xl w-auto">
@@ -86,13 +103,25 @@ const StudentAppDetail = () => {
           {/* Additional Field */}
           <div className="col-span-2">
             <label className="block text-gray-700">{additionalFieldLabel}:</label>
-            <p className="w-full mt-1 p-2 border rounded">{user.semester}</p>
+            {user.applicationType === 'Change FYP' ? (
+              <input
+                type="text"
+                className="w-full mt-1 p-2 border rounded"
+                value={user.message}
+                readOnly
+              />
+            ) : (
+              <p className="w-full mt-1 p-2 border rounded">
+                {user.applicationType === 'Freezing Semester' ? user.semester : 
+                 user.applicationType === 'Paper Rechecking' ? user.paperName : user.paperNumber}
+              </p>
+            )}
           </div>
           <div className="col-span-2">
             <label className="block text-gray-700">Forward To:</label>
-            <select 
-              className="w-full mt-1 p-2 border rounded" 
-              value={forwardTo} 
+            <select
+              className="w-full mt-1 p-2 border rounded"
+              value={forwardTo}
               onChange={(e) => setForwardTo(e.target.value)}
             >
               <option>Select Concerned Person</option>
@@ -114,8 +143,8 @@ const StudentAppDetail = () => {
           </div>
         </div>
         <div className="col-span-2 text-center mt-4">
-          <button 
-            className="bg-blue-500 text-white px-4 py-2 rounded" 
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded"
             onClick={handleSubmit}
           >
             Forward
