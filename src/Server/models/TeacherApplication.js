@@ -10,7 +10,7 @@ const TeacherApplicationSchema = new mongoose.Schema({
   remark: { type: String }, // Ensure this field is used correctly
 
   submittedAt: { type: Date, default: Date.now },
-  additionalFields: { type: mongoose.Schema.Types.Mixed }, // Adjust as needed for flexible data types
+  semester: { type: String }, // Use mongoose.Schema.Types.Mixed for flexibility
 
   status: {
     type: String,

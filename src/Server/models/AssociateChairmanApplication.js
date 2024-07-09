@@ -8,8 +8,9 @@ const AssociateChairmanApplicationSchema = new mongoose.Schema({
   sendTo: { type: String, required: true },
   message: { type: String, required: true },
   submittedAt: { type: Date, default: Date.now },
-  additionalFields: { type: mongoose.Schema.Types.Mixed }, // Use mongoose.Schema.Types.Mixed for flexibility
+  semester: { type: String }, // Use mongoose.Schema.Types.Mixed for flexibility
   remark: { type: String }, // Add the remark field here
+
   
 
   status: {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SideBar from './FacultySidebar';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const FacultyPendingApp = () => {
   const [users, setUsers] = useState([]);
@@ -81,17 +81,13 @@ const FacultyPendingApp = () => {
     if (acceptedUsersStorage) {
       setAcceptedUsers(new Set(JSON.parse(acceptedUsersStorage)));
     }
-  }, []);
+    fetchPendingApplications(); // Fetch applications on component mount
+  }, []); // Empty dependency array to run only on mount
 
   // Function to save accepted applications IDs to localStorage
   useEffect(() => {
     localStorage.setItem('acceptedUsers', JSON.stringify([...acceptedUsers]));
   }, [acceptedUsers]);
-
-  // Fetch pending applications on component mount and whenever users or username changes
-  useEffect(() => {
-    fetchPendingApplications();
-  }, [username, users]); // Trigger on changes to username or users state
 
   // Function to handle accepting an application
   const handleAccept = async (user) => {
@@ -130,7 +126,7 @@ const FacultyPendingApp = () => {
 
   return (
     <div className="h-screen bg-[#1F4887] flex items-center justify-center">
-      <div className='-ml-28'>
+      <div className="-ml-28">
         <SideBar onRoleChange={handleRoleChange} />
       </div>
 
@@ -140,7 +136,7 @@ const FacultyPendingApp = () => {
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application Type</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registration Number</th>
-
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Send To</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted At</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
@@ -151,13 +147,13 @@ const FacultyPendingApp = () => {
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.fullName}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.applicationType}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.registrationNumber}</td>
-
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.sendTo}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{new Date(user.submittedAt).toLocaleString()}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                 {!acceptedUsers.has(user._id) && (
                   <>
-                    {/* <button className="mr-2 px-3 py-1 bg-green-500 text-white rounded-md focus:outline-none" onClick={() => handleAccept(user)}>Accept</button> */}
-                    <Link to={`/StudentAppDetail?fullName=${user.fullName}&registrationNumber=${user.registrationNumber}&applicationTitle=${user.applicationTitle}&applicationType=${user.applicationType}&message=${user.message}&_id=${user._id}`}>
+                    <button className="mr-2 px-3 py-1 bg-green-500 text-white rounded-md focus:outline-none" onClick={() => handleAccept(user)}>Accept</button>
+                    <Link to={`/StudentAppDetail?fullName=${user.fullName}&registrationNumber=${user.registrationNumber}&applicationTitle=${user.applicationTitle}&applicationType=${user.applicationType}&message=${user.message}&semester=${user.semester}&_id=${user._id}`}>
                       <button className="px-3 py-1 bg-red-500 text-white rounded-md focus:outline-none">Process</button>
                     </Link>
                   </>

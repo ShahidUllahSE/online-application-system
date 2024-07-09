@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import FacultySidebar from './FacultySidebar';
 
+
 const StudentAppDetail = () => {
+  const navigate=useNavigate();
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const user = {
-    fullName: queryParams.get('fullName'),
-    registrationNumber: queryParams.get('registrationNumber'),
-    message: queryParams.get('message'),
-    applicationType: queryParams.get('applicationType'),
-    message: queryParams.get('message'),
-    additionalField: queryParams.get('additionalField'), // Fetch additionalField from query params
-    _id: queryParams.get('_id')
+    fullName: queryParams.get('fullName') || '',
+    registrationNumber: queryParams.get('registrationNumber') || '',
+    message: queryParams.get('message') || '',
+    applicationType: queryParams.get('applicationType') || '',
+    semester: queryParams.get('semester') || '', // Fetch additionalField from query params
+    _id: queryParams.get('_id') || ''
   };
   const [forwardTo, setForwardTo] = useState('');
   const [additionalFieldLabel, setAdditionalFieldLabel] = useState('');
@@ -39,7 +41,7 @@ const StudentAppDetail = () => {
     try {
       await axios.put(
         `http://localhost:5000/api/update-application/${user._id}`,
-        { forwardTo, additionalField: user.additionalField },
+        { forwardTo, additionalField: user.semester },
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -49,6 +51,8 @@ const StudentAppDetail = () => {
       );
 
       alert('Application updated successfully');
+      navigate('/ForwardApplication')
+
     } catch (error) {
       console.error('Error updating application:', error);
       alert('Error updating application');
@@ -82,7 +86,7 @@ const StudentAppDetail = () => {
           {/* Additional Field */}
           <div className="col-span-2">
             <label className="block text-gray-700">{additionalFieldLabel}:</label>
-            <p className="w-full mt-1 p-2 border rounded">{user.additionalField}</p>
+            <p className="w-full mt-1 p-2 border rounded">{user.semester}</p>
           </div>
           <div className="col-span-2">
             <label className="block text-gray-700">Forward To:</label>
@@ -114,7 +118,7 @@ const StudentAppDetail = () => {
             className="bg-blue-500 text-white px-4 py-2 rounded" 
             onClick={handleSubmit}
           >
-            Submit
+            Forward
           </button>
         </div>
       </div>

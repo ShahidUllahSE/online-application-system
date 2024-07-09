@@ -23,6 +23,9 @@ import FacultyStudentDetails from './components/FacultyStudentDetails';
 import TemplateSelection from './components/TempleteSelection';
 import StudentAppDetail from './components/StudentAppDetail';
 import AdminPie from './components/AdminPie';
+import ApplicationSubmitted from './components/ApplicationSubmitted';
+import ForwardApplication from './components/ForwardApplication';
+
 
 
 
@@ -61,6 +64,10 @@ function App() {
 
 
 <Route path='/StudentAppDetail' element={<StudentAppDetail/>}/>
+<Route path='/ApplicationSubmitted' element={<ApplicationSubmitted/>}/>
+<Route path='/ForwardApplication' element={<ForwardApplication/>}/>
+
+
 <Route path='/AdminPie' element={<AdminPie/>}/>
 
 

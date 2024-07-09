@@ -7,7 +7,7 @@ const applicationSchema = new mongoose.Schema({
   sendTo: String,
   message: String,
   username: String, // Add this field
-  additionalFields: { type: Schema.Types.Mixed }, // Flexible field to store additional data
+  additionalField: string, // Flexible field to store additional data
 
   status: { type: String, default: 'Pending' },
 });
