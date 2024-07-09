@@ -21,7 +21,10 @@ const AddRoles = () => {
         email,
         role,
       });
-      console.log('Role added successfully:', res.data);
+      alert('Role added successfully:', res.data);
+      setName('');
+      setEmail('');
+      setRole('');
       // Optionally, clear the form or show a success message
     } catch (err) {
       console.error('Error adding role:', err.response.data);

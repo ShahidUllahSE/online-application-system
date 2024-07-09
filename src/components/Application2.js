@@ -8,6 +8,7 @@ const Application2 = () => {
   const [applicationType, setApplicationType] = useState('');
   const [sendTo, setSendTo] = useState('');
   const [message, setMessage] = useState('');
+  const [additionalField, setAdditionalField] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent page refresh
@@ -24,6 +25,7 @@ const Application2 = () => {
         applicationType,
         sendTo,
         message,
+        additionalField,
       });
       alert('Form submitted successfully:', res.data);
       // Reset form fields
@@ -32,9 +34,213 @@ const Application2 = () => {
       setApplicationType('');
       setSendTo('');
       setMessage('');
+      setAdditionalField('');
     } catch (err) {
       console.error('Form submission error:', err.response.data);
       // Handle error, show error message, etc.
+    }
+  };
+
+  // Function to dynamically render additional field based on applicationType
+  const renderAdditionalField = () => {
+    switch (applicationType) {
+      case 'Freezing Semester':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              Semester Number
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter semester number"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Paper Cancellation':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              Paper Name
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter paper name"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Paper Rechecking':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              Paper Code
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter paper code"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Change FYP':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              New FYP Title
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter new FYP title"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Admission Cancellation':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              Admission Reason
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter reason for admission cancellation"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Rearrangement of Mid Exam':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              Exam Date Request
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter requested exam date"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Active Enrollment':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              Program Name
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter program name"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Course Completion Certificate':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              Course Name
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter course name"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Change Subject':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              New Subject Name
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter new subject name"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Arrange Paper':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              Paper Code
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter paper code"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Course Withdrawal':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              Reason for Withdrawal
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter reason for withdrawal"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Change Supervisor':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              New Supervisor Name
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter new supervisor name"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      case 'Educational Documents':
+        return (
+          <div className="mb-4 mt-4">
+            <label htmlFor="additionalField" className="block text-gray-700 text-sm font-bold mb-2">
+              Document Type
+            </label>
+            <input
+              id="additionalField"
+              className="w-60 border bg-gray-300 rounded-lg p-2"
+              placeholder="Enter document type"
+              value={additionalField}
+              onChange={(e) => setAdditionalField(e.target.value)}
+            />
+          </div>
+        );
+      default:
+        return null;
     }
   };
 
@@ -107,11 +313,15 @@ const Application2 = () => {
                 id="applicationType"
                 className="w-60 border bg-gray-300 rounded-lg p-2"
                 value={applicationType}
-                onChange={(e) => setApplicationType(e.target.value)}
+                onChange={(e) => {
+                  setApplicationType(e.target.value);
+                  // Reset additionalField when application type changes
+                  setAdditionalField('');
+                }}
               >
                 <option value="">Choose Application Type</option>
-                <option value="Semester Freezing">Semester Freezing</option>
                 <option value="Paper Cancellation">Paper Cancellation</option>
+                <option value="Freezing Semester">Freezing Semester</option>
                 <option value="Paper Rechecking">Paper Rechecking</option>
                 <option value="Change FYP">Change FYP</option>
                 <option value="Admission Cancellation">Admission Cancellation</option>
@@ -125,6 +335,8 @@ const Application2 = () => {
                 <option value="Educational Documents">Educational Documents</option>
               </select>
             </div>
+
+            {renderAdditionalField()}
 
             <div className="mb-4 mt-4">
               <label htmlFor="sendTo" className="block text-gray-700 text-sm font-bold mb-2">
@@ -150,7 +362,6 @@ const Application2 = () => {
                 <option value="All Faculty Members">All Faculty Members</option>
                 <option value="CMS Operator">CMS Operator</option>
                 <option value="Office Assistant">Office Assistant</option>
-                <option value="Other">Other</option>
               </select>
             </div>
 
@@ -161,7 +372,7 @@ const Application2 = () => {
               <textarea
                 id="message"
                 className="w-60 h-72 border bg-gray-300 rounded-lg p-2"
-                placeholder="write your Application here"
+                placeholder="Write your Application  here"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               ></textarea>

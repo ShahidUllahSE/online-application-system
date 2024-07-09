@@ -1,12 +1,24 @@
-import React from "react";
-import Logo from "../assest/logouetpes.jpg";
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import Logo from '../assest/logouetpes.jpg';
+import { AuthContext } from '../Contexts/AuthContext'; // Import AuthContext
 
 const Navbar = () => {
+  const { isLoggedIn, logout } = useContext(AuthContext); // Get isLoggedIn and logout from AuthContext
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleLogout = () => {
+    logout();
+    navigate('/Login'); // Navigate to the login page after logout
+  };
+
   return (
-    <div style={{ backgroundColor: "#1F4887", borderBottom: '2px solid white' }} className="flex flex-wrap justify-between items-center p-2 md:px-6">
-      <div className="flex items-center bg-white -mt-3  -ml-6  rounded-br-[19px] p-2 w-full md:w-1/3 lg:w-2/6">
-        <div style={{ padding: "5px" ,borderRadius: "50%"  }}>
+    <div
+      style={{ backgroundColor: "#1F4887", borderBottom: '2px solid white', position: 'sticky', top: '-40px', zIndex: '1000' }}
+      className="flex flex-wrap justify-between items-center p-2 md:px-6"
+    >
+      <div className="flex items-center bg-[1F4887] text-white -mt-2 -ml-6 rounded-br-[19px] p-2 w-full md:w-1/3 lg:w-2/6 style={{ opacity: 0.8 }}">
+        <div style={{ padding: "5px", borderRadius: "50%" }}>
           <img
             src={Logo}
             alt="logo"
@@ -22,26 +34,23 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-grow justify-center  mt-4 md:mt-0 md:w-2/3 lg:w-auto">
-        <ul className="flex space-x-4 md:space-x-6 lg:space-x-20">
-        <Link to='/' className="text-white font-medium hover:border-b-2 hover:border-[#329987] "> Home</Link>
-          <Link to='/About' className="text-white font-medium hover:border-b-2 hover:border-[#329987]"> About Us</Link>
-          <Link to='/Contact' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Contact Us</Link>
-
-          {/* <Link to='/Welcome' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Welcome</Link> */}
-          {/* <Link to='/Application' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Application</Link> */}
-
-          {/* <Link to='/AdminAppForms' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> admin</Link> */}
-
-          {/* <Link to='/SideBar' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> SideBar</Link> */}
-
-{/* <Link to='/Application2' className="text-white font-medium hover:border-b-2  hover:border-[#329987]"> Application2</Link>  */}
+      <div className="flex flex-grow justify-center -mt-16 md:mt-0 md:w-2/3 lg:w-auto">
+        <ul className="flex space-x-4 mt-8 md:space-x-6 lg:space-x-20">
+          <Link to="/" className="text-white font-medium hover:border-b-2 hover:border-[#329987]"> Home</Link>
+          <Link to="/About" className="text-white font-medium hover:border-b-2 hover:border-[#329987]"> About Us</Link>
+          <Link to="/Contact" className="text-white font-medium hover:border-b-2 hover:border-[#329987]"> Contact Us</Link>
         </ul>
       </div>
       <div className="mt-4 md:mt-0">
-        <Link to="/Login">
-          <button className="text-white w-24 md:w-28 text-base md:text-lg bg-[#329987] p-2 rounded-xl font-semibold">Log In</button>
-        </Link>
+        {isLoggedIn ? (
+          <button onClick={handleLogout} className="text-white w-24 md:w-28 text-base md:text-lg bg-[#329987] p-2 rounded-xl font-semibold">
+            Log Out
+          </button>
+        ) : (
+          <Link to="/Login">
+            {/* <button className="text-white w-24 md:w-28 text-base md:text-lg bg-[#329987] p-2 rounded-xl font-semibold">Log In</button> */}
+          </Link>
+        )}
       </div>
     </div>
   );

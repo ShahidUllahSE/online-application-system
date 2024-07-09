@@ -19,7 +19,7 @@ const Welcome = () => {
 
       
       <div className="-mt-96 text-center ml-12">
-        <h1 className="text-white text-3xl font-bold font-serif">Welcome to SOARS</h1>
+        {/* <h1 className="text-white text-3xl font-bold font-serif">Welcome to SOARS</h1> */}
         <p className="text-white font-sans text-xl mt-4">
           Start new application by clicking
           <br />

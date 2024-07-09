@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from 'axios'; 
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -48,11 +48,11 @@ const Contact = () => {
               If you have any problem, or need support Get In Touch with us by
               filling the form.
             </li>
-            <li className="py-1">Or can directly email us at: acb@gmail.com</li>
+            <li className="py-1">Or can directly email us at: 20pwbcs0815@uetpeshawar.edu.pk</li>
             <li className="py-1">
               You can also Get in Touch with us via Facebook and Twitter
             </li>
-            <li className="py-1">Contact No : 0123456789</li>
+            <li className="py-1">Contact No : 03195110150</li>
           </ul>
         </div>
 

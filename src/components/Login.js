@@ -66,18 +66,15 @@ const Login = () => {
   return (
     <div className='w-full min-h-full bg-[#1F4887] flex'>
       {/* Left side content */}
-      <div className='left bg-[#FCF7F7] p-8 flex flex-col justify-center items-center md:items-start md:h-full md:mr-2 md:w-[359px] mt-1'>
-        <img className='h-16 w-auto -mt-6 -ml-3' src={logo} alt='' />
-        <span className="font-bold bg-[#FCF7F7] w-52 -mt-8 shadow-slate-600 text-2xl font-serif">S O A R S</span>
-        <div className='flex mt-2 md:mt-0'>
-          <span className="block text-xs -mr-4 font-bold">University of Engineering & Technology Peshawar</span>
-        </div>
+      <div className='left bg-[#1F4887] p-8 flex flex-col opacity-70 justify-center items-center md:items-start md:h-full md:mr-2 md:w-[359px] mt-1'>
       </div>
 
       {/* Right side image */}
-      <div className='w-[376px] bg-[#F1F1F1] h-full mt-[100px] -ml-96'>
+      <div className='w-[376px] opacity-80 bg-[#1F4887] h-[500px] mt-[0px] -ml-96'>
         <img className='' src={loginImage} alt='' />
       </div>
+
+      
 
       {/* Login form */}
       <div className="form bg-white rounded-xl shadow-lg m-4 ml-52 p-8 md:mr-20 md:mt-12 md:w-96">

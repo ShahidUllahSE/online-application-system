@@ -19,7 +19,7 @@ const Home = () => {
             src={Image}
             alt="img"
             style={{ width: "50%", backgroundColor: "white" }}
-            className="rounded-3xl md:ml-40"
+            className="rounded-3xl  md:ml-40"
           />
         </div>
       </div>
@@ -32,7 +32,7 @@ const Home = () => {
       <div className='flex ml-16 mt-16'>
         <Link to='/Login'>
         <button style={{ fontSize: '19px' }} className='flex items-center justify-between bg-[#329987] p-4 rounded-lg w-[350px] h-[44px] gap-0 text-white font-semibold'>
-          File an Application
+          File an Application - Login
           <FaArrowRight className='w-10' size={20} />
         </button>
         </Link>

@@ -8,6 +8,9 @@ const BatchAdvisorApplicationSchema = new mongoose.Schema({
   sendTo: { type: String, required: true },
   message: { type: String, required: true },
   submittedAt: { type: Date, default: Date.now },
+  remark: { type: String }, // Add the remark field here
+  additionalFields: { type: mongoose.Schema.Types.Mixed }, // Use mongoose.Schema.Types.Mixed for flexibility
+
   status:{
     type:String,
     enum:['pending','completed','rejected'],

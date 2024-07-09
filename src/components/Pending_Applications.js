@@ -23,12 +23,12 @@ const Pending_Applications = () => {
 
   return (
     <div>
-      <div>
+      <div className=' '>
         <SideBar />
       </div>
       <div className="bg-[#1F4887] flex flex-col items-center justify-center">
         <div className="flex-grow p-4 flex items-center justify-center w-full">
-          <table className="w-full max-w-4xl -mt-[800px] ml-44 border border-gray-200 rounded-lg shadow-sm">
+          <table className="w-full max-w-2xl mr-8 -mt-[640px] ml-72 border border-gray-200 rounded-lg shadow-sm">
             <thead className="bg-gray-300">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>

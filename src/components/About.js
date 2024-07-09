@@ -1,7 +1,6 @@
 import React from "react";
 import abtimg from "../assest/abtimg.png";
 import icontick from "../assest/iconstick.png";
-// import { VscCheck } from "react-icons/vsc";
 
 const About = () => {
   return (

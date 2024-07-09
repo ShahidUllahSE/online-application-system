@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import SideBar from './SideBar';
 import FacultySidebar from './FacultySidebar';
 
 const StudentAppDetail = () => {
@@ -10,24 +9,41 @@ const StudentAppDetail = () => {
   const user = {
     fullName: queryParams.get('fullName'),
     registrationNumber: queryParams.get('registrationNumber'),
-    applicationTitle: queryParams.get('applicationTitle'),
+    message: queryParams.get('message'),
     applicationType: queryParams.get('applicationType'),
-    attachedFile: queryParams.get('attachedFile'),
+    message: queryParams.get('message'),
+    additionalField: queryParams.get('additionalField'), // Fetch additionalField from query params
     _id: queryParams.get('_id')
   };
   const [forwardTo, setForwardTo] = useState('');
+  const [additionalFieldLabel, setAdditionalFieldLabel] = useState('');
   const token = localStorage.getItem('token');
   const userRole = localStorage.getItem('username');
+
+  useEffect(() => {
+    // Update the additionalFieldLabel based on the applicationType
+    switch (user.applicationType) {
+      case 'type1':
+        setAdditionalFieldLabel('Additional Info for Type 1');
+        break;
+      case 'type2':
+        setAdditionalFieldLabel('Additional Info for Type 2');
+        break;
+      // Add more cases as needed for different application types
+      default:
+        setAdditionalFieldLabel('Additional Info');
+    }
+  }, [user.applicationType]);
 
   const handleSubmit = async () => {
     try {
       await axios.put(
         `http://localhost:5000/api/update-application/${user._id}`,
-        { forwardTo },
+        { forwardTo, additionalField: user.additionalField },
         {
           headers: {
             'Authorization': `Bearer ${token}`,
-            'userrole': userRole // Send the userRole in headers
+            'userrole': userRole
           }
         }
       );
@@ -42,8 +58,7 @@ const StudentAppDetail = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-blue-900">
       <div className='-ml-[560px] -mt-[2px]'>
-        {/* Sidebar or other components */}
-        <FacultySidebar/>
+        <FacultySidebar />
       </div>
       <div className="bg-white p-10 rounded-lg shadow-lg ml-12 h-auto max-w-5xl w-auto">
         <h1 className="text-center text-2xl font-bold mb-6">Application Detail</h1>
@@ -57,16 +72,17 @@ const StudentAppDetail = () => {
             <p className="w-full mt-1 p-2 border rounded">{user.registrationNumber}</p>
           </div>
           <div className="col-span-2">
-            <label className="block text-gray-700">Application Title:</label>
-            <p className="w-full mt-1 p-2 border rounded">{user.applicationTitle}</p>
+            <label className="block text-gray-700">Application:</label>
+            <p className="w-full mt-1 p-2 border rounded">{user.message}</p>
           </div>
           <div className="col-span-2">
             <label className="block text-gray-700">Application Type:</label>
             <p className="w-full mt-1 p-2 border rounded">{user.applicationType}</p>
           </div>
+          {/* Additional Field */}
           <div className="col-span-2">
-            <label className="block text-gray-700">Attached File:</label>
-            <p className="w-full mt-1 p-2 border rounded">{user.attachedFile}</p>
+            <label className="block text-gray-700">{additionalFieldLabel}:</label>
+            <p className="w-full mt-1 p-2 border rounded">{user.additionalField}</p>
           </div>
           <div className="col-span-2">
             <label className="block text-gray-700">Forward To:</label>

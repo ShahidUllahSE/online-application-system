@@ -134,7 +134,7 @@ const FacultyPendingApp = () => {
         <SideBar onRoleChange={handleRoleChange} />
       </div>
 
-      <table className="w-full max-w-4xl mt-24 ml-8 border border-gray-200 rounded-lg shadow-sm">
+      <table className="w-full max-w-4xl -mt-24 ml-8 border border-gray-200 rounded-lg shadow-sm">
         <thead className="bg-gray-300">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
@@ -156,9 +156,9 @@ const FacultyPendingApp = () => {
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                 {!acceptedUsers.has(user._id) && (
                   <>
-                    <button className="mr-2 px-3 py-1 bg-green-500 text-white rounded-md focus:outline-none" onClick={() => handleAccept(user)}>Accept</button>
-                    <Link to={`/StudentAppDetail?fullName=${user.fullName}&registrationNumber=${user.registrationNumber}&applicationTitle=${user.applicationTitle}&applicationType=${user.applicationType}&attachedFile=${user.attachedFile}&_id=${user._id}`}>
-                      <button className="px-3 py-1 bg-red-500 text-white rounded-md focus:outline-none">Edit</button>
+                    {/* <button className="mr-2 px-3 py-1 bg-green-500 text-white rounded-md focus:outline-none" onClick={() => handleAccept(user)}>Accept</button> */}
+                    <Link to={`/StudentAppDetail?fullName=${user.fullName}&registrationNumber=${user.registrationNumber}&applicationTitle=${user.applicationTitle}&applicationType=${user.applicationType}&message=${user.message}&_id=${user._id}`}>
+                      <button className="px-3 py-1 bg-red-500 text-white rounded-md focus:outline-none">Process</button>
                     </Link>
                   </>
                 )}
