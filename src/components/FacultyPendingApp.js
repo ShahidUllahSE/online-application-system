@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SideBar from './FacultySidebar';
 import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root'); // Add this line for accessibility
 
 const FacultyPendingApp = () => {
   const [users, setUsers] = useState([]);
   const [acceptedUsers, setAcceptedUsers] = useState(new Set());
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedRemark, setSelectedRemark] = useState('');
   const username = localStorage.getItem('username');
   console.log('Logged in as:', username);
 
@@ -124,6 +129,17 @@ const FacultyPendingApp = () => {
     // Handle role change logic here if needed
   };
 
+  // Function to open the modal and set the selected remark
+  const openModal = (remark) => {
+    setSelectedRemark(remark || 'No remarks');
+    setModalIsOpen(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <div className="h-screen bg-[#1F4887] flex items-center justify-center p-4">
       <div className="-ml-8">
@@ -151,7 +167,11 @@ const FacultyPendingApp = () => {
                 <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900">{user.registrationNumber}</td>
                 <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900">{user.sendTo}</td>
                 <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900">{new Date(user.submittedAt).toLocaleString()}</td>
-                <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900" style={{ maxWidth: '100px', wordWrap: 'break-word' }}>{user.remark}</td>
+                <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900" style={{ maxWidth: '100px', wordWrap: 'break-word' }}>
+                  <span onClick={() => openModal(user.remark)} className="cursor-pointer">
+                    {user.remark && user.remark.length > 20 ? `${user.remark.slice(0, 20)}...` : (user.remark || 'No remarks')}
+                  </span>
+                </td>
                 <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900">
                   {!acceptedUsers.has(user._id) && (
                     <>
@@ -162,7 +182,7 @@ const FacultyPendingApp = () => {
                     </>
                   )}
                   {acceptedUsers.has(user._id) && (
-                    <span className="text-sm text-gray-500">Accepted</span>
+                    <span className="text-sm text-green-500">Accepted</span>
                   )}
                 </td>
               </tr>
@@ -170,6 +190,19 @@ const FacultyPendingApp = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal for displaying the full remark */}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Remark Details"
+        className="modal-content"
+        overlayClassName="modal-overlay"
+      >
+        <h2 className="text-xl font-bold mb-4">Remark Details</h2>
+        <p>{selectedRemark}</p>
+        <button onClick={closeModal} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none">Close</button>
+      </Modal>
     </div>
   );
 };
