@@ -13,7 +13,10 @@ const FYPSupervisorApplicationSchema = new mongoose.Schema({
   paperNumber:{type:String},
   fypChangeReason:{type : String},
   paperName:{type : String},
-
+  forwardTo: {
+    type: String,
+    default: 'In Progress',
+  },
   status:{
     type:String,
     enum:['pending','completed','rejected'],

@@ -12,6 +12,10 @@ const ChairmanApplicationSchema = new mongoose.Schema({
   paperNumber:{type:String},
   fypChangeReason:{type : String},
   paperName:{type : String},
+  forwardTo: {
+    type: String,
+    default: 'In Progress',
+  },
 
 
   submittedAt: { type: Date, default: Date.now },

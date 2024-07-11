@@ -185,6 +185,9 @@ const Application2 = () => {
                 <option value="Course Withdrawal">Course Withdrawal</option>
                 <option value="Change Supervisor">Change Supervisor</option>
                 <option value="Educational Documents">Educational Documents</option>
+                <option value="other">Other </option>
+
+
               </select>
             </div>
 
@@ -214,6 +217,7 @@ const Application2 = () => {
                 <option value="All Faculty Members">All Faculty Members</option>
                 <option value="CMS Operator">CMS Operator</option>
                 <option value="Office Assistant">Office Assistant</option>
+
               </select>
             </div>
 

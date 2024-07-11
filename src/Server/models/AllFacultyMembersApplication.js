@@ -6,7 +6,10 @@ const AllFacultyMembersApplicationSchema = new mongoose.Schema({
     applicationType: { type: String, required: true }, // Ensure this field exists
     fypChangeReason:{type : String},
     paperName:{type : String},
-
+    forwardTo: {
+      type: String,
+      default: 'In Progress',
+    },
     sendTo: { type: String, required: true },
     message: { type: String, required: true },
     submittedAt: { type: Date, default: Date.now }

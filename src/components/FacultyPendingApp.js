@@ -125,48 +125,51 @@ const FacultyPendingApp = () => {
   };
 
   return (
-    <div className="h-screen bg-[#1F4887] flex items-center justify-center">
-      <div className="">
+    <div className="h-screen bg-[#1F4887] flex items-center justify-center p-4">
+      <div className="-ml-8">
         <SideBar onRoleChange={handleRoleChange} />
       </div>
 
-      <table className="w-full max-w-4xl -mt-2 ml-2 border border-gray-200 rounded-lg shadow-sm">
-        <thead className="bg-gray-300">
-          <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application Type</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registration Number</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Send To</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted At</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {users.map((user, index) => (
-            <tr key={index}>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.fullName}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.applicationType}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.registrationNumber}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.sendTo}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{new Date(user.submittedAt).toLocaleString()}</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                {!acceptedUsers.has(user._id) && (
-                  <>
-                    <button className="mr-2 px-3 py-1 bg-green-500 text-white rounded-md focus:outline-none" onClick={() => handleAccept(user)}>Accept</button>
-                    <Link to={`/StudentAppDetail?fullName=${user.fullName}&registrationNumber=${user.registrationNumber}&applicationTitle=${user.applicationTitle}&applicationType=${user.applicationType}&message=${user.message}&semester=${user.semester}&_id=${user._id}&paperNumber=${user.paperNumber}&fypChangeReason=${user.fypChangeReason}&paperName=${user.paperName}`}>
-  <button className="px-3 py-1 bg-red-500 text-white rounded-md focus:outline-none">Process</button>
-</Link>
-
-                  </>
-                )}
-                {acceptedUsers.has(user._id) && (
-                  <span className="text-sm text-gray-500">Accepted</span>
-                )}
-              </td>
+      <div className="w-full max-w-7xl mx-auto -mt-24 bg-white shadow-md rounded-lg overflow-hidden">
+        <table className="min-w-full bg-white table-fixed">
+          <thead className="bg-gray-300">
+            <tr>
+              <th className="w-1/12 px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Full Name</th>
+              <th className="w-1/12 px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application Type</th>
+              <th className="w-1/12 px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reg. Number</th>
+              <th className="w-1/12 px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Send To</th>
+              <th className="w-1/12 px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted At</th>
+              <th className="w-2/12 px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Remarks</th>
+              <th className="w-2/12 px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {users.map((user, index) => (
+              <tr key={index}>
+                <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900">{user.fullName}</td>
+                <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900">{user.applicationType}</td>
+                <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900">{user.registrationNumber}</td>
+                <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900">{user.sendTo}</td>
+                <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900">{new Date(user.submittedAt).toLocaleString()}</td>
+                <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900" style={{ maxWidth: '100px', wordWrap: 'break-word' }}>{user.remark}</td>
+                <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-900">
+                  {!acceptedUsers.has(user._id) && (
+                    <>
+                      <button className="mr-2 px-2 py-1 bg-green-500 text-white rounded-md focus:outline-none" onClick={() => handleAccept(user)}>Accept</button>
+                      <Link to={`/StudentAppDetail?fullName=${user.fullName}&registrationNumber=${user.registrationNumber}&applicationTitle=${user.applicationTitle}&applicationType=${user.applicationType}&message=${user.message}&semester=${user.semester}&_id=${user._id}&paperNumber=${user.paperNumber}&fypChangeReason=${user.fypChangeReason}&paperName=${user.paperName}`}>
+                        <button className="px-2 py-1 bg-red-500 text-white rounded-md focus:outline-none">Process</button>
+                      </Link>
+                    </>
+                  )}
+                  {acceptedUsers.has(user._id) && (
+                    <span className="text-sm text-gray-500">Accepted</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

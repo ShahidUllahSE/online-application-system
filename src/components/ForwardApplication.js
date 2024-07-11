@@ -1,15 +1,15 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
+import FacultySidebar from './FacultySidebar';
 
 const ForwardApplication = () => {
-    const navigate=useNavigate();
-    return (
-    <div className='h-screen bg-[#1F4887] '>
-      
-      <div className='flex justify-center text-center '>
-      <h1 className='text-white font-[sans-serif] text-3xl font-bold mt-52 '>Application Forwarded successfully</h1>
+  return (
+    <div className="flex h-screen bg-[#1F4887]">
+      <FacultySidebar />
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <h1 className="text-white font-[sans-serif] -mt-52 text-3xl font-bold">
+          Application Forwarded successfully
+        </h1>
       </div>
-     
     </div>
   );
 };

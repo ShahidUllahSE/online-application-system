@@ -10,7 +10,10 @@ const AssociateChairmanApplicationSchema = new mongoose.Schema({
   submittedAt: { type: Date, default: Date.now },
   semester: { type: String }, // Use mongoose.Schema.Types.Mixed for flexibility
   remark: { type: String }, // Add the remark field here
-
+  forwardTo: {
+    type: String,
+    default: 'In Progress',
+  },
   paperNumber:{type:String},
   paperName:{type : String},
   fypChangeReason:{type : String},

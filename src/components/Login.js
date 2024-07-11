@@ -59,7 +59,7 @@ const Login = () => {
       }
     } catch (err) {
       console.error('Login error:', err);
-      alert('Login failed');
+      alert('incorrect username or password');
     }
   };
 

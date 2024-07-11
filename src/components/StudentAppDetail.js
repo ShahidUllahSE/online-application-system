@@ -14,12 +14,13 @@ const StudentAppDetail = () => {
     message: '',
     applicationType: '',
     paperNumber: '',
-    paperName: '', // New state for paperName
+    paperName: '',
     semester: '',
     _id: ''
   });
 
   const [forwardTo, setForwardTo] = useState('');
+  const [remark, setRemark] = useState('');
   const [additionalFieldLabel, setAdditionalFieldLabel] = useState('');
   const token = localStorage.getItem('token');
   const userRole = localStorage.getItem('username');
@@ -31,21 +32,20 @@ const StudentAppDetail = () => {
       message: queryParams.get('message') || '',
       applicationType: queryParams.get('applicationType') || '',
       paperNumber: queryParams.get('paperNumber') || '',
-      paperName: queryParams.get('paperName') || '', // Set paperName from query params
+      paperName: queryParams.get('paperName') || '',
       semester: queryParams.get('semester') || '',
       _id: queryParams.get('_id') || ''
     });
 
-    // Update the additionalFieldLabel based on the applicationType
     switch (queryParams.get('applicationType')) {
       case 'Freezing Semester':
         setAdditionalFieldLabel('Semester');
-        break;
+        break;  
       case 'Paper Cancellation':
         setAdditionalFieldLabel('Paper Number');
         break;
       case 'Paper Rechecking':
-        setAdditionalFieldLabel('Paper Name'); // Update label for Paper Rechecking
+        setAdditionalFieldLabel('Paper Name');
         break;
       case 'Change FYP':
         setAdditionalFieldLabel('Reason for Change');
@@ -59,7 +59,15 @@ const StudentAppDetail = () => {
     try {
       await axios.put(
         `http://localhost:5000/api/update-application/${user._id}`,
-        { forwardTo, additionalField: user.semester || user.paperNumber || user.paperName || user.message }, // Include paperName
+        { 
+          forwardTo,
+          remark,
+          applicationType: user.applicationType,
+          paperName: user.paperName,
+          paperNumber: user.paperNumber,
+          semester: user.semester,
+          fypChangeReason: user.fypChangeReason
+        },
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -100,22 +108,12 @@ const StudentAppDetail = () => {
             <label className="block text-gray-700">Application Type:</label>
             <p className="w-full mt-1 p-2 border rounded">{user.applicationType}</p>
           </div>
-          {/* Additional Field */}
           <div className="col-span-2">
             <label className="block text-gray-700">{additionalFieldLabel}:</label>
-            {user.applicationType === 'Change FYP' ? (
-              <input
-                type="text"
-                className="w-full mt-1 p-2 border rounded"
-                value={user.message}
-                readOnly
-              />
-            ) : (
-              <p className="w-full mt-1 p-2 border rounded">
-                {user.applicationType === 'Freezing Semester' ? user.semester : 
-                 user.applicationType === 'Paper Rechecking' ? user.paperName : user.paperNumber}
-              </p>
-            )}
+            <p className="w-full mt-1 p-2 border rounded">
+              {user.applicationType === 'Freezing Semester' ? user.semester :
+               user.applicationType === 'Paper Rechecking' ? user.paperName : user.paperNumber}
+            </p>
           </div>
           <div className="col-span-2">
             <label className="block text-gray-700">Forward To:</label>
@@ -140,6 +138,14 @@ const StudentAppDetail = () => {
               <option value="Office Assistant">Office Assistant</option>
               <option value="Other">Other</option>
             </select>
+          </div>
+          <div className="col-span-2">
+            <label className="block text-gray-700">Remarks:</label>
+            <textarea
+              className="w-full mt-1 p-2 border rounded"
+              value={remark}
+              onChange={(e) => setRemark(e.target.value)}
+            ></textarea>
           </div>
         </div>
         <div className="col-span-2 text-center mt-4">

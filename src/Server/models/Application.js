@@ -6,10 +6,15 @@ const applicationSchema = new mongoose.Schema({
   applicationType: String,
   sendTo: String,
   message: String,
+  remark:String,
   username: String, // Add this field
   additionalField: string, // Flexible field to store additional data
   paperNumber:{type:String},
   paperName:{type : String},
+  forwardTo: {
+    type: String,
+    default: 'In Progress',
+  },
 
 
   status: { type: String, default: 'Pending' },
