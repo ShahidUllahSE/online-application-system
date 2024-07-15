@@ -13,6 +13,11 @@ const FacultyPendingApp = () => {
   const [selectedRemark, setSelectedRemark] = useState('');
   const username = localStorage.getItem('username');
   console.log('Logged in as:', username);
+  useEffect(() => {
+    console.log('Logged in as:', username);
+    alert(`Logged in as: ${username}`);
+  }, [username]); // Run this effect when the component mounts and username is available
+
 
   // Function to fetch pending applications
   const fetchPendingApplications = async () => {
@@ -146,6 +151,9 @@ const FacultyPendingApp = () => {
         <SideBar onRoleChange={handleRoleChange} />
       </div>
 
+      <div className="absolute top-2 right-2 text-sm text-gray-600">
+        Logged in as: {username}
+      </div>
       <div className="w-full max-w-7xl mx-auto -mt-24 bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full bg-white table-fixed">
           <thead className="bg-gray-300">

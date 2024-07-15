@@ -6,6 +6,7 @@ import { AuthContext } from '../Contexts/AuthContext'; // Import AuthContext
 const Navbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext); // Get isLoggedIn and logout from AuthContext
   const navigate = useNavigate(); // Initialize useNavigate
+  const username = localStorage.getItem('username'); // Retrieve the username from localStorage
 
   const handleLogout = () => {
     logout();
@@ -17,7 +18,7 @@ const Navbar = () => {
       style={{ backgroundColor: "#1F4887", borderBottom: '2px solid white', position: 'sticky', top: '-40px', zIndex: '1000' }}
       className="flex flex-wrap justify-between items-center p-2 md:px-6"
     >
-      <div className="flex items-center bg-[1F4887] text-white -mt-2 -ml-6 rounded-br-[19px] p-2 w-full md:w-1/3 lg:w-2/6 style={{ opacity: 0.8 }}">
+      <div className="flex items-center bg-[1F4887] text-white -mt-2 -ml-6 rounded-br-[19px] p-2 w-full md:w-1/3 lg:w-2/6" style={{ opacity: 0.8 }}>
         <div style={{ padding: "5px", borderRadius: "50%" }}>
           <img
             src={Logo}
@@ -42,6 +43,9 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="mt-4 md:mt-0">
+        {username && (
+          <span className="text-white text-sm md:text-base">{`Logged in as: ${username}`}</span>
+        )}
         {isLoggedIn ? (
           <button onClick={handleLogout} className="text-white w-24 md:w-28 text-base md:text-lg bg-[#329987] p-2 rounded-xl font-semibold">
             Log Out

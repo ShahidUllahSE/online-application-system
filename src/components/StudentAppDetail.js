@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import FacultySidebar from './FacultySidebar';
+import { Link } from 'react-router-dom';
 
 const StudentAppDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
+  const username = localStorage.getItem('username');
 
   const [user, setUser] = useState({
     fullName: '',
@@ -24,6 +26,8 @@ const StudentAppDetail = () => {
   const [additionalFieldLabel, setAdditionalFieldLabel] = useState('');
   const token = localStorage.getItem('token');
   const userRole = localStorage.getItem('username');
+  const [users, setUsers] = useState([]);
+  const [acceptedUsers, setAcceptedUsers] = useState(new Set());
 
   useEffect(() => {
     setUser({
@@ -40,7 +44,7 @@ const StudentAppDetail = () => {
     switch (queryParams.get('applicationType')) {
       case 'Freezing Semester':
         setAdditionalFieldLabel('Semester');
-        break;  
+        break;
       case 'Paper Cancellation':
         setAdditionalFieldLabel('Paper Number');
         break;
@@ -83,6 +87,118 @@ const StudentAppDetail = () => {
       alert('Error updating application');
     }
   };
+
+  const fetchPendingApplications = async () => {
+    const token = localStorage.getItem('token');
+    if (token && username) {
+      let apiEndpoint = '';
+      switch (username) {
+        case 'chairman':
+          apiEndpoint = 'http://localhost:5000/api/chairman-applications';
+          break;
+        case 'batch_advisor':
+          apiEndpoint = 'http://localhost:5000/api/batch-advisor-applications';
+          break;
+        case 'teacher':
+          apiEndpoint = 'http://localhost:5000/api/teacher-applications';
+          break;
+        case 'semester_coordinator':
+          apiEndpoint = 'http://localhost:5000/api/semester-coordinator-applications';
+          break;
+        case 'other':
+          apiEndpoint = 'http://localhost:5000/api/other-applications';
+          break;
+        case 'fyp_supervisor':
+          apiEndpoint = 'http://localhost:5000/api/fyp-supervisor-applications';
+          break;
+        case 'associate_chairman':
+          apiEndpoint = 'http://localhost:5000/api/associate-chairman-applications';
+          break;
+        case 'convener_disciplinary_committee':
+          apiEndpoint = 'http://localhost:5000/api/convener-disciplinary-committee-applications';
+          break;
+        case 'convener_scholarship_committee':
+          apiEndpoint = 'http://localhost:5000/api/convener-scholarship-committee-applications';
+          break;
+        case 'coordinator':
+          apiEndpoint = 'http://localhost:5000/api/coordinator-applications';
+          break;
+        case 'mid_exam_rearrangement_committee':
+          apiEndpoint = 'http://localhost:5000/api/mid-exam-rearrangement-committee-applications';
+          break;
+        case 'all_faculty_members':
+          apiEndpoint = 'http://localhost:5000/api/all-faculty-members-applications';
+          break;
+        case 'cms_operator':
+          apiEndpoint = 'http://localhost:5000/api/cms-operator-applications';
+          break;
+        case 'office_assistant':
+          apiEndpoint = 'http://localhost:5000/api/office-assistant-applications';
+          break;
+        default:
+          console.error('Invalid role');
+          return;
+      }
+
+      try {
+        const response = await axios.get(apiEndpoint, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setUsers(response.data);
+      } catch (error) {
+        console.error('Error fetching applications:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const acceptedUsersStorage = localStorage.getItem('acceptedUsers');
+    if (acceptedUsersStorage) {
+      setAcceptedUsers(new Set(JSON.parse(acceptedUsersStorage)));
+    }
+    fetchPendingApplications();
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('acceptedUsers', JSON.stringify([...acceptedUsers]));
+  }, [acceptedUsers]);
+
+  const handleAccept = async (user) => {
+    const token = localStorage.getItem('token');
+    const userRole = localStorage.getItem('username');
+  
+    try {
+      await axios.put(
+        `http://localhost:5000/accept-application/${user._id}`,
+        { remark },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'userRole': userRole
+          }
+        }
+      );
+  
+      // Update state to reflect accepted application
+      setUsers(users => users.filter(u => u._id !== user._id));
+      setAcceptedUsers(new Set([...acceptedUsers, user._id]));
+      
+    } catch (error) {
+      console.error('Error accepting application:', error);
+      alert('Error accepting application');
+      return;
+    }
+  };
+  
+  // Use useEffect to navigate after acceptedUsers state has been updated
+  useEffect(() => {
+    if (acceptedUsers.has(user._id)) {
+      navigate('/ApplicationAccepted');
+    }
+  }, [acceptedUsers, navigate, user._id]);
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-blue-900">
@@ -155,6 +271,14 @@ const StudentAppDetail = () => {
           >
             Forward
           </button>
+          {!acceptedUsers.has(user._id) && (
+            <>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded ml-2" onClick={() => handleAccept(user)}>Accept</button>
+            </>
+          )}
+          {acceptedUsers.has(user._id) && (
+            <span className="text-sm text-green-500">Accepted</span>
+          )}
         </div>
       </div>
     </div>
@@ -162,3 +286,5 @@ const StudentAppDetail = () => {
 };
 
 export default StudentAppDetail;
+
+
