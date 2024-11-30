@@ -45,7 +45,7 @@ const Login = () => {
       }
 
       // If not matched in hardcoded, then try with MongoDB credentials
-      const res = await axios.post('http://localhost:5000/api/auth/login', { username, password });
+      const res = await axios.post('https://online-application-backend.vercel.app/api/auth/login', { username, password });
 
       if (res.data.token) {
         const { token, username } = res.data;
