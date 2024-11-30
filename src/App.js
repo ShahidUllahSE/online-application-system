@@ -25,7 +25,8 @@ import StudentAppDetail from './components/StudentAppDetail';
 import AdminPie from './components/AdminPie';
 import ApplicationSubmitted from './components/ApplicationSubmitted';
 import ForwardApplication from './components/ForwardApplication';
-import ApplicationAccepted from './components/ApplicationAccepted';
+// import ApplicationAccepted from './components/applica';
+// import Application2 from './components/Application2';
 
 
 
@@ -67,11 +68,14 @@ function App() {
 <Route path='/StudentAppDetail' element={<StudentAppDetail/>}/>
 <Route path='/ApplicationSubmitted' element={<ApplicationSubmitted/>}/>
 <Route path='/ForwardApplication' element={<ForwardApplication/>}/>
-<Route path='/ApplicationAccepted' element={<ApplicationAccepted/>}/>
+{/* <Route path='/ApplicationAccepted' element={<ApplicationAccepted/>}/> */}
 
 
 
 <Route path='/AdminPie' element={<AdminPie/>}/>
+{/* <Route path='/ApplicationDetails2' element={<Application2/>}/> */}
+
+
 
 
 

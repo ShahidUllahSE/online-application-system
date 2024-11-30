@@ -12,34 +12,36 @@ function AdminPie() {
         label: 'Number of Applications',
         data: [],
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)', // Teal
+          'rgba(255, 99, 132, 0.2)', // Light Pink
+          'rgba(54, 162, 235, 0.2)', // Light Blue
+          'rgba(255, 206, 86, 0.2)', // Light Yellow
+          'rgba(153, 102, 255, 0.2)', // Light Purple
+          'rgba(255, 159, 64, 0.2)', // Light Orange
+          'rgba(199, 199, 199, 0.2)', // Light Gray
+          'rgba(100, 181, 246, 0.2)', // Light Cyan
+          'rgba(255, 138, 101, 0.2)', // Light Coral
+          'rgba(174, 213, 129, 0.2)', // Light Green
+          'rgba(186, 104, 200, 0.2)', // Light Magenta
+          'rgba(121, 85, 72, 0.2)', // Light Brown
+          'rgba(144, 164, 174, 0.2)', // Light Slate Gray
+          'rgba(0, 150, 136, 0.2)', // Light Teal
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)', // Teal
+          'rgba(255, 99, 132, 1)', // Pink
+          'rgba(54, 162, 235, 1)', // Blue
+          'rgba(255, 206, 86, 1)', // Yellow
+          'rgba(153, 102, 255, 1)', // Purple
+          'rgba(255, 159, 64, 1)', // Orange
+          'rgba(199, 199, 199, 1)', // Gray
+          'rgba(100, 181, 246, 1)', // Cyan
+          'rgba(255, 138, 101, 1)', // Coral
+          'rgba(174, 213, 129, 1)', // Green
+          'rgba(186, 104, 200, 1)', // Magenta
+          'rgba(121, 85, 72, 1)', // Brown
+          'rgba(144, 164, 174, 1)', // Slate Gray
+          'rgba(0, 150, 136, 1)', // Teal
         ],
         borderWidth: 1,
       },
@@ -89,34 +91,36 @@ function AdminPie() {
                 counts.officeAssistant,
               ],
               backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
+                'rgba(75, 192, 192, 0.2)', // Teal
+                'rgba(255, 99, 132, 0.2)', // Light Pink
+                'rgba(54, 162, 235, 0.2)', // Light Blue
+                'rgba(255, 206, 86, 0.2)', // Light Yellow
+                'rgba(153, 102, 255, 0.2)', // Light Purple
+                'rgba(255, 159, 64, 0.2)', // Light Orange
+                'rgba(199, 199, 199, 0.2)', // Light Gray
+                'rgba(100, 181, 246, 0.2)', // Light Cyan
+                'rgba(255, 138, 101, 0.2)', // Light Coral
+                'rgba(174, 213, 129, 0.2)', // Light Green
+                'rgba(186, 104, 200, 0.2)', // Light Magenta
+                'rgba(121, 85, 72, 0.2)', // Light Brown
+                'rgba(144, 164, 174, 0.2)', // Light Slate Gray
+                'rgba(0, 150, 136, 0.2)', // Light Teal
               ],
               borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(75, 192, 192, 1)',
+                'rgba(75, 192, 192, 1)', // Teal
+                'rgba(255, 99, 132, 1)', // Pink
+                'rgba(54, 162, 235, 1)', // Blue
+                'rgba(255, 206, 86, 1)', // Yellow
+                'rgba(153, 102, 255, 1)', // Purple
+                'rgba(255, 159, 64, 1)', // Orange
+                'rgba(199, 199, 199, 1)', // Gray
+                'rgba(100, 181, 246, 1)', // Cyan
+                'rgba(255, 138, 101, 1)', // Coral
+                'rgba(174, 213, 129, 1)', // Green
+                'rgba(186, 104, 200, 1)', // Magenta
+                'rgba(121, 85, 72, 1)', // Brown
+                'rgba(144, 164, 174, 1)', // Slate Gray
+                'rgba(0, 150, 136, 1)', // Teal
               ],
               borderWidth: 1,
             },
@@ -140,6 +144,16 @@ function AdminPie() {
         display: true,
         text: 'Applications by Role',
       },
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem) {
+            const total = tooltipItem.dataset.data.reduce((acc, currentValue) => acc + currentValue, 0);
+            const currentValue = tooltipItem.raw;
+            const percentage = ((currentValue / total) * 100).toFixed(2);
+            return `${currentValue} (${percentage}%)`;
+          },
+        },
+      },
     },
     layout: {
       padding: {
@@ -156,118 +170,11 @@ function AdminPie() {
   };
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       <AdminSideBar />
-      <div className="flex-1 max-w-screen-lg mx-auto p-4 md:p-6">
-        <div className="bg-white rounded-lg shadow p-4 md:p-6">
-          <div className="flex justify-between items-start">
-            <div className="flex items-center mb-1 relative">
-              <h5 className="text-xl font-bold leading-none text-gray-900 me-1">
-                Applications by Role
-              </h5>
-              <svg
-                className="w-3.5 h-3.5 text-gray-500 hover:text-gray-900 cursor-pointer ms-1"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z" />
-              </svg>
-            </div>
-            {/* <button
-              id="dateRangeButton"
-              data-dropdown-toggle="dateRangeDropdown"
-              data-dropdown-ignore-click-outside-className="datepicker"
-              type="button"
-              className="inline-flex items-center text-blue-700 font-medium hover:underline"
-            >
-              31 Nov - 31 Dec{' '}
-              <svg
-                className="w-3 h-3 ms-2"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 10 6"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m1 1 4 4 4-4"
-                />
-              </svg>
-            </button> */}
-            <div
-              id="dateRangeDropdown"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-80 lg:w-96"
-            >
-              <div className="p-3" aria-labelledby="dateRangeButton">
-                <div
-                  date-rangepicker
-                  datepicker-autohide
-                  className="flex items-center"
-                >
-                  <div className="relative">
-                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                      <svg
-                        className="w-4 h-4 text-gray-500"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                      </svg>
-                    </div>
-                    <input
-                      name="start"
-                      type="text"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring
-focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
-                      placeholder="Select date start"
-                    />
-                  </div>
-                  <span className="mx-4 text-gray-500">to</span>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                      <svg
-                        className="w-4 h-4 text-gray-500"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                      </svg>
-                    </div>
-                    <input
-                      name="end"
-                      type="text"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
-                      placeholder="Select date end"
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center pt-3 space-x-2 border-t border-gray-200">
-                  <button
-                    type="button"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
-                  >
-                    Apply
-                  </button>
-                  <button
-                    type="button"
-                    className="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-2 text-center"
-                    data-dropdown-toggle="dateRangeDropdown"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="flex-grow flex justify-center items-center bg-gradient-to-r from-[#1F4887] to-[#329987] p-4 ml-64">
+        <div className="bg-white p-6 md:p-10 rounded-lg shadow-lg w-full max-w-4xl mt-10">
+          <h1 className="text-[#1F4887] text-3xl md:text-4xl font-bold mb-4 text-center">Applications by Role</h1>
           <div className="relative aspect-w-16 aspect-h-9 h-96">
             <Pie data={data} options={options} />
           </div>

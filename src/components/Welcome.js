@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
 
 const Welcome = () => {
@@ -10,28 +10,25 @@ const Welcome = () => {
   };
 
   return (
-    <div className="Flex Flex-col justify-center items-center bg-[#1F4887]">
-      <SideBar/>
-    
-     
-    <div className=" ">
-      
-
-      
-      <div className="-mt-[580px] text-center ml-12">
-        {/* <h1 className="text-white text-3xl font-bold font-serif">Welcome to SOARS</h1> */}
-        <p className="text-white font-sans text-xl mt-4">
-          Start new application by clicking
-          <br />
-          <span>CREATE NEW APPLICATION</span>
-        </p>
-        <div className="mt-8">
-          <button onClick={handleCreateApplication} className="text-white w-80 text-lg bg-[#329987] p-2 rounded-xl font-semibold">
+    <div className="flex min-h-screen">
+      <SideBar />
+      <div className="flex-grow flex justify-center items-start bg-gradient-to-r from-[#1F4887] to-[#329987] p-4 ml-64">
+        <div
+          className="bg-white p-6 md:p-8 rounded-lg shadow-lg text-center w-11/12 max-w-lg mt-12"
+          style={{ marginLeft: 'calc(12rem - 4cm)', marginTop: 'calc(3rem + 3cm)' }}
+        >
+          <h1 className="text-[#1F4887] text-3xl md:text-4xl font-bold mb-4">Initiate Your Application Process</h1>
+          <p className="text-gray-700 text-md md:text-lg mb-8">
+            Start a new application by clicking the button below.
+          </p>
+          <button 
+            onClick={handleCreateApplication} 
+            className="text-white w-full py-3 text-lg bg-[#1F4887] hover:bg-[#329987] transition-all duration-300 rounded-lg font-semibold shadow-md"
+          >
             Create New Application
           </button>
         </div>
       </div>
-    </div>
     </div>
   );
 };

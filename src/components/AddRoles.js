@@ -25,84 +25,82 @@ const AddRoles = () => {
       setName('');
       setEmail('');
       setRole('');
-      // Optionally, clear the form or show a success message
     } catch (err) {
       console.error('Error adding role:', err.response.data);
-      // Handle error, show error message, etc.
     }
   };
 
   return (
-    <div className="h-screen bg-[#1F4887] flex justify-center items-center">
-      <div className='-ml-52'>
-        <AdminSideBar />
-      </div>
-      <div className="h-auto ml-40">
-        <form className="bg-white h-[500px] w-[650px] p-8 rounded-lg shadow-md" onSubmit={handleSubmit}>
-          <h1 className="text-3xl font-bold font-serif pb-4 ml-16">Add Role</h1>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              className="w-full border rounded-lg bg-gray-300 p-2"
-              placeholder="Enter your name"
-              value={fullname}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
+    <div className="flex min-h-screen">
+      <AdminSideBar />
+      <div className="flex-grow flex justify-center items-center bg-gradient-to-r from-[#1F4887] to-[#329987] p-4 ml-64"> {/* Added ml-64 to account for the sidebar width */}
+        <div className="bg-white p-6 md:p-10 rounded-lg shadow-lg w-full max-w-2xl">
+          <h1 className="text-[#1F4887] text-3xl md:text-4xl font-bold mb-6 text-center">Add Role</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                className="w-full border rounded-lg bg-gray-100 p-2"
+                placeholder="Enter your name"
+                value={fullname}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
 
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full border rounded-lg bg-gray-300 p-2"
-              placeholder="Enter your Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="w-full border rounded-lg bg-gray-100 p-2"
+                placeholder="Enter your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
 
-          <div className="mb-4 mt-12">
-  <label htmlFor="role" className="block text-gray-700 text-sm font-bold mb-2">
-    Role
-  </label>
-  <select
-    id="role"
-    className="w-full border bg-gray-300 rounded-lg p-2"
-    value={role}
-    onChange={(e) => setRole(e.target.value)}
-  >
-    <option value="">Select Role</option>
-    <option value="Chairman">Chairman</option>
-    <option value="Semester Coordinator">Semester Coordinator</option>
-    <option value="Batch Advisor">Batch Advisor</option>
-    <option value="Teacher">Teacher</option>
-    <option value="Other">Other</option>
-    <option value="FYP Supervisor">FYP Supervisor</option>
-    <option value="Associate Chairman">Associate Chairman</option>
-    <option value="Convener Disciplinary Committee">Convener Disciplinary Committee</option>
-    <option value="Convener Scholarship Committee">Convener Scholarship Committee</option>
-    <option value="Coordinator">Coordinator</option>
-    <option value="Mid Exam Rearrangement Committee">Mid Exam Rearrangement Committee</option>
-    <option value="All Faculty Members">All Faculty Members</option>
-    <option value="CMS Operator">CMS Operator</option>
-    <option value="Office Assistant">Office Assistant</option>
-  </select>
-</div>
+            <div className="mb-4">
+              <label htmlFor="role" className="block text-gray-700 text-sm font-bold mb-2">
+                Role
+              </label>
+              <select
+                id="role"
+                className="w-full border bg-gray-100 rounded-lg p-2"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+              >
+                <option value="">Select Role</option>
+                <option value="Chairman">Chairman</option>
+                <option value="Semester Coordinator">Semester Coordinator</option>
+                <option value="Batch Advisor">Batch Advisor</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Other">Other</option>
+                <option value="FYP Supervisor">FYP Supervisor</option>
+                <option value="Associate Chairman">Associate Chairman</option>
+                <option value="Convener Disciplinary Committee">Convener Disciplinary Committee</option>
+                <option value="Convener Scholarship Committee">Convener Scholarship Committee</option>
+                <option value="Coordinator">Coordinator</option>
+                <option value="Mid Exam Rearrangement Committee">Mid Exam Rearrangement Committee</option>
+                <option value="All Faculty Members">All Faculty Members</option>
+                <option value="CMS Operator">CMS Operator</option>
+                <option value="Office Assistant">Office Assistant</option>
+              </select>
+            </div>
 
-          <button
-            type="submit"
-            className="w-72 mt-16 ml-28 bg-[#329987] text-white p-2 rounded-md font-semibold"
-          >
-            Submit
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="w-full bg-[#1F4887] text-white p-2 rounded-md font-semibold hover:bg-[#329987] transition-all duration-300"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

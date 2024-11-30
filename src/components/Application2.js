@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import SideBar from './SideBar';
 import { useNavigate } from 'react-router-dom';
+import SideBar from './SideBar';
 
 const Application2 = () => {
   const [fullName, setFullName] = useState('');
@@ -56,13 +56,13 @@ const Application2 = () => {
       return (
         <div className="mb-4 mt-4">
           <label htmlFor="semester" className="block text-gray-700 text-sm font-bold mb-2">
-            Semester Number
+            Semester
           </label>
           <input
             id="semester"
             type="text"
-            className="w-60 border bg-gray-300 rounded-lg p-2"
-            placeholder="Enter semester number"
+            className="w-full border bg-gray-100 rounded-lg p-2"
+            placeholder="Spring-24"
             value={semester}
             onChange={(e) => setSemester(e.target.value)}
           />
@@ -77,7 +77,7 @@ const Application2 = () => {
           <input
             id="paperNumber"
             type="text"
-            className="w-60 border bg-gray-300 rounded-lg p-2"
+            className="w-full border bg-gray-100 rounded-lg p-2"
             placeholder="Enter paper number"
             value={paperNumber}
             onChange={(e) => setPaperNumber(e.target.value)}
@@ -93,7 +93,7 @@ const Application2 = () => {
           <input
             id="paperName"
             type="text"
-            className="w-60 border bg-gray-300 rounded-lg p-2"
+            className="w-full border bg-gray-100 rounded-lg p-2"
             placeholder="Enter paper name"
             value={paperName}
             onChange={(e) => setPaperName(e.target.value)}
@@ -109,7 +109,7 @@ const Application2 = () => {
           <input
             id="fypChangeReason"
             type="text"
-            className="w-60 border bg-gray-300 rounded-lg p-2"
+            className="w-full border bg-gray-100 rounded-lg p-2"
             placeholder="Enter reason for changing FYP"
             value={fypChangeReason}
             onChange={(e) => setFypChangeReason(e.target.value)}
@@ -121,12 +121,12 @@ const Application2 = () => {
   };
 
   return (
-    <div className="h-screen -mt-3 bg-[#1F4887]">
-      <div className="h-auto">
-        <SideBar />
-        <div className="flex justify-center -mt-[620px] pt-16 items-center h-auto bg-[#1F4887]">
-          <form className="bg-white ml-52 h-[500px] w-[650px] p-8 rounded-lg -mt-8 shadow-md" onSubmit={handleSubmit}>
-            <h1 className="text-3xl font-bold font-serif pb-4 ml-16">Online Application Form</h1>
+    <div className="flex min-h-screen">
+      <SideBar />
+      <div className="flex-grow flex justify-center items-start bg-gradient-to-r from-[#1F4887] to-[#329987] p-4 ml-64">
+        <div className="bg-white p-6 md:p-10 rounded-lg shadow-lg w-full max-w-2xl mt-12" style={{ marginLeft: 'calc(12rem - 4cm)', marginTop: 'calc(3rem + 2cm)' }}>
+          <h1 className="text-[#1F4887] text-3xl md:text-4xl font-bold mb-4 text-center">Online Application Form</h1>
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="fullName" className="block text-gray-700 text-sm font-bold mb-2">
                 Full Name
@@ -134,7 +134,7 @@ const Application2 = () => {
               <input
                 type="text"
                 id="fullName"
-                className="w-60 border rounded-lg bg-gray-300 p-2"
+                className="w-full border bg-gray-100 rounded-lg p-2"
                 placeholder="Enter your name"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
@@ -148,20 +148,20 @@ const Application2 = () => {
               <input
                 type="text"
                 id="registrationNumber"
-                className="w-60 border rounded-lg bg-gray-300 p-2"
+                className="w-full border bg-gray-100 rounded-lg p-2"
                 placeholder="Enter your Registration Number"
                 value={registrationNumber}
                 onChange={(e) => setRegistrationNumber(e.target.value)}
               />
             </div>
 
-            <div className="mb-4 mt-4">
+            <div>
               <label htmlFor="applicationType" className="block text-gray-700 text-sm font-bold mb-2">
                 Application Type
               </label>
               <select
                 id="applicationType"
-                className="w-60 border bg-gray-300 rounded-lg p-2"
+                className="w-full border bg-gray-100 rounded-lg p-2"
                 value={applicationType}
                 onChange={(e) => {
                   setApplicationType(e.target.value);
@@ -185,21 +185,19 @@ const Application2 = () => {
                 <option value="Course Withdrawal">Course Withdrawal</option>
                 <option value="Change Supervisor">Change Supervisor</option>
                 <option value="Educational Documents">Educational Documents</option>
-                <option value="other">Other </option>
-
-
+                <option value="other">Other</option>
               </select>
             </div>
 
             {renderAdditionalField()}
 
-            <div className="mb-4 mt-4">
+            <div>
               <label htmlFor="sendTo" className="block text-gray-700 text-sm font-bold mb-2">
                 Send To
               </label>
               <select
                 id="sendTo"
-                className="w-60 border bg-gray-300 rounded-lg p-2"
+                className="w-full border bg-gray-100 rounded-lg p-2"
                 value={sendTo}
                 onChange={(e) => setSendTo(e.target.value)}
               >
@@ -217,18 +215,17 @@ const Application2 = () => {
                 <option value="All Faculty Members">All Faculty Members</option>
                 <option value="CMS Operator">CMS Operator</option>
                 <option value="Office Assistant">Office Assistant</option>
-
               </select>
             </div>
 
-            <div className="w-full ml-[320px] -mt-80 mb-4">
+            <div>
               <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">
                 Application
               </label>
               <textarea
                 id="message"
-                className="w-60 h-72 border bg-gray-300 rounded-lg p-2"
-                placeholder="Write your Application  here"
+                className="w-full h-32 border bg-gray-100 rounded-lg p-2"
+                placeholder="Write your Application here"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               ></textarea>
@@ -236,7 +233,7 @@ const Application2 = () => {
 
             <button
               type="submit"
-              className="w-60 mt-6 ml-80 bg-[#329987] text-white p-2 rounded-md font-semibold"
+              className="w-full bg-[#1F4887] text-white p-2 rounded-md font-semibold hover:bg-[#329987] transition-all duration-300"
             >
               Submit
             </button>

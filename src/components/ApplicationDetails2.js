@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import FacultySidebar from './FacultySidebar';
+import { Link } from 'react-router-dom';
 
-const StudentAppDetail = () => {
+const ApplicationDetails2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -17,12 +18,12 @@ const StudentAppDetail = () => {
     paperNumber: '',
     paperName: '',
     semester: '',
+    remark: '',
     _id: ''
   });
 
   const [forwardTo, setForwardTo] = useState('');
   const [remark, setRemark] = useState('');
-  const [studentRemark, setStudentRemark] = useState(''); // New state for studentRemark
   const [additionalFieldLabel, setAdditionalFieldLabel] = useState('');
   const token = localStorage.getItem('token');
   const userRole = localStorage.getItem('username');
@@ -38,6 +39,7 @@ const StudentAppDetail = () => {
       paperNumber: queryParams.get('paperNumber') || '',
       paperName: queryParams.get('paperName') || '',
       semester: queryParams.get('semester') || '',
+      remark: queryParams.get('remark') || '',
       _id: queryParams.get('_id') || ''
     });
 
@@ -63,7 +65,7 @@ const StudentAppDetail = () => {
     try {
       await axios.put(
         `http://localhost:5000/api/update-application/${user._id}`,
-        {
+        { 
           forwardTo,
           remark,
           applicationType: user.applicationType,
@@ -71,7 +73,7 @@ const StudentAppDetail = () => {
           paperNumber: user.paperNumber,
           semester: user.semester,
           fypChangeReason: user.fypChangeReason,
-          studentRemark // Include studentRemark in the request body
+          remark:user.remark
         },
         {
           headers: {
@@ -173,7 +175,7 @@ const StudentAppDetail = () => {
     try {
       await axios.put(
         `http://localhost:5000/accept-application/${user._id}`,
-        { remark, studentRemark }, // Include studentRemark in the request body
+        { remark },
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -182,30 +184,24 @@ const StudentAppDetail = () => {
         }
       );
 
-      // Update state to reflect accepted application
       setUsers(users => users.filter(u => u._id !== user._id));
       setAcceptedUsers(new Set([...acceptedUsers, user._id]));
 
+      alert('Application accepted and moved to completed');
     } catch (error) {
       console.error('Error accepting application:', error);
       alert('Error accepting application');
-      return;
     }
   };
 
-  // Use useEffect to navigate after acceptedUsers state has been updated
-  useEffect(() => {
-    if (acceptedUsers.has(user._id)) {
-      navigate('/ApplicationAccepted');
-    }
-  }, [acceptedUsers, navigate, user._id]);
-
   return (
-    <div className="flex min-h-screen">
-      <FacultySidebar />
-      <div className="flex-grow flex justify-center items-start bg-gradient-to-r from-[#1F4887] to-[#329987] p-4 ml-64">
-        <div className="bg-white p-6 md:p-10 rounded-lg shadow-lg w-full max-w-2xl mt-10">
-          <h1 className="text-[#1F4887] text-3xl md:text-4xl font-bold mb-4 text-center">Application Detail</h1>
+    <div className="flex flex-row min-h-screen bg-blue-900">
+      <div className="w-1/4">
+        <FacultySidebar />
+      </div>
+      <div className="w-3/4 p-10 flex items-center justify-center">
+        <div className="bg-white p-10 rounded-lg shadow-lg h-auto max-w-5xl w-full">
+          <h1 className="text-center text-2xl font-bold mb-6">Application Detail</h1>
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-1">
               <label className="block text-gray-700">Name:</label>
@@ -217,82 +213,32 @@ const StudentAppDetail = () => {
             </div>
             <div className="col-span-2">
               <label className="block text-gray-700">Application:</label>
-              <p className="w-full mt-1 p-2 border rounded break-words">{user.message}</p>
+              <p className="w-full mt-1 p-2 border rounded">{user.message}</p>
             </div>
             <div className="col-span-2">
               <label className="block text-gray-700">Application Type:</label>
               <p className="w-full mt-1 p-2 border rounded">{user.applicationType}</p>
             </div>
             <div className="col-span-2">
+              <label className="block text-gray-700">Remark:</label>
+              <p className="w-full mt-1 p-2 border rounded">{user.remark}</p>
+            </div>
+            <div className="col-span-2">
               <label className="block text-gray-700">{additionalFieldLabel}:</label>
               <p className="w-full mt-1 p-2 border rounded">
                 {user.applicationType === 'Freezing Semester' ? user.semester :
-                user.applicationType === 'Paper Rechecking' ? user.paperName : user.paperNumber}
+                 user.applicationType === 'Paper Rechecking' ? user.paperName : user.paperNumber}
               </p>
             </div>
-            <div className="col-span-2">
-              <label className="block text-gray-700">Forward To:</label>
-              <select
-                className="w-full mt-1 p-2 border rounded"
-                value={forwardTo}
-                onChange={(e) => setForwardTo(e.target.value)}
-              >
-                <option value="">Select Recipient</option>
-                {[
-                  'chairman',
-                  'batch_advisor',
-                  'teacher',
-                  'semester_coordinator',
-                  'fyp_supervisor',
-                  'associate_chairman',
-                  'convener_disciplinary_committee',
-                  'convener_scholarship_committee',
-                  'coordinator',
-                  'mid_exam_rearrangement_committee',
-                  'all_faculty_members',
-                  'cms_operator',
-                  'office_assistant'
-                ].map((role) => (
-                  <option key={role} value={role}>{role.replace('_', ' ')}</option>
-                ))}
-              </select>
-            </div>
-            <div className="col-span-2">
-              <label className="block text-gray-700">Remark:</label>
-              <textarea
-                className="w-full mt-1 p-2 border rounded"
-                value={remark}
-                onChange={(e) => setRemark(e.target.value)}
-              />
-            </div>
-            <div className="col-span-2">
-              <label className="block text-gray-700">Student Remark:</label>
-              <textarea
-                className="w-full mt-1 p-2 border rounded"
-                value={studentRemark}
-                onChange={(e) => setStudentRemark(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="flex justify-between mt-4">
-            <button
-              onClick={handleSubmit}
-              className="bg-[#1F4887] hover:bg-[#1b3e73] text-white font-bold py-2 px-4 rounded"
-            >
-              Forward
-            </button>
-            <button
-              onClick={() => handleAccept(user)}
-              className="bg-[#329987] hover:bg-[#2c8578] text-white font-bold py-2 px-4 rounded"
-            >
-              Accept
-            </button>
-          </div>
+           
           
+          
+          
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default StudentAppDetail;
+export default ApplicationDetails2;

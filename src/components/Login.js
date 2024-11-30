@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logo from '../assest/logo.png';
 import loginImage from '../assest/login2.png';
 
 const Login = () => {
@@ -35,14 +34,13 @@ const Login = () => {
 
       const user = hardcodedCredentials[username];
       if (user && user.password === password) {
-        localStorage.setItem('username', username);
-        if( username ==='admin' && user.password === password)
-          {
-
-            navigate('/AdminAppForms');
-          }
-          else
-        navigate('/FacultyDashboard'); // Navigate based on role
+        const storedUsername = username || 'Student'; // Default to 'Student' if username is undefined
+        localStorage.setItem('username', storedUsername);
+        if (username === 'admin' && user.password === password) {
+          navigate('/AdminAppForms');
+        } else {
+          navigate('/FacultyDashboard'); // Navigate based on role
+        }
         return;
       }
 
@@ -51,61 +49,53 @@ const Login = () => {
 
       if (res.data.token) {
         const { token, username } = res.data;
+        const storedUsername = username || 'Student'; // Default to 'Student' if username is undefined
         localStorage.setItem('token', token);
-        localStorage.setItem('username', username);
+        localStorage.setItem('username', storedUsername);
         navigate('/Welcome'); // Navigate to Welcome page or appropriate dashboard
       } else {
         alert('Incorrect username or password');
       }
     } catch (err) {
       console.error('Login error:', err);
-      alert('incorrect username or password');
+      alert('Incorrect username or password');
     }
   };
 
   return (
-    <div className='w-full min-h-full bg-[#1F4887] flex'>
-      {/* Left side content */}
-      <div className='left bg-[#1F4887] p-8 flex flex-col opacity-70 justify-center items-center md:items-start md:h-full md:mr-2 md:w-[359px] mt-1'>
+    <div className="flex min-h-screen bg-gradient-to-r from-[#1F4887] to-[#329987] items-center justify-center p-4">
+      <div className="hidden md:flex md:w-1/2 lg:w-2/5">
+        <img src={loginImage} alt="Login Illustration" className="object-cover w-full h-full rounded-l-lg" />
       </div>
-
-      {/* Right side image */}
-      <div className='w-[376px] opacity-80 bg-[#1F4887] h-[500px] mt-[0px] -ml-96'>
-        <img className='' src={loginImage} alt='' />
-      </div>
-
-      
-
-      {/* Login form */}
-      <div className="form bg-white rounded-xl shadow-lg m-4 ml-52 p-8 md:mr-20 md:mt-12 md:w-96">
-        <form onSubmit={handleLogin} className="flex flex-col space-y-4">
-          <h2 className='text-3xl font-bold font-sans mb-2'>Welcome to SOARS</h2>
-          <p className='font-bold font-sans text-sm ml-[75px]'>Login your account</p>
-          <div className="mt-10">
-            <label htmlFor="username" className="text-sm">UserName:</label>
+      <div className="flex flex-col justify-center items-center w-full md:w-1/2 lg:w-2/5 bg-white p-8 md:p-16 rounded-lg shadow-lg">
+        <h2 className="text-3xl font-bold text-[#1F4887] mb-2">Welcome to SOARS</h2>
+        <p className="text-sm text-gray-600 mb-8">Login to your account</p>
+        <form onSubmit={handleLogin} className="w-full space-y-4">
+          <div>
+            <label htmlFor="username" className="block text-sm text-gray-700">Username</label>
             <input
               type="text"
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="Type Your UserName here..."
-              className="ring-1 ring-gray-300 w-full rounded-md px-2 py-1 mt-1 mb-2 outline-none focus:ring-2 focus:ring-green-300"
+              placeholder="Type your username here..."
+              className="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#329987] focus:border-[#329987]"
             />
           </div>
           <div>
-            <label htmlFor="password" className="text-sm">Password:</label>
+            <label htmlFor="password" className="block text-sm text-gray-700">Password</label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Your Password..."
-              className="ring-1 ring-gray-300 w-full rounded-md px-2 py-1 mt-1 mb-2 outline-none focus:ring-2 focus:ring-green-300"
+              placeholder="Type your password here..."
+              className="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#329987] focus:border-[#329987]"
             />
           </div>
           <button
             type="submit"
-            className="bg-[#329987] text-white p-2 rounded-md font-semibold"
+            className="w-full py-2 px-4 bg-[#329987] text-white rounded-md font-semibold hover:bg-[#287a6e] transition duration-300"
           >
             Login
           </button>

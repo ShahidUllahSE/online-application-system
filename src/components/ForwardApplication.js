@@ -3,12 +3,14 @@ import FacultySidebar from './FacultySidebar';
 
 const ForwardApplication = () => {
   return (
-    <div className="flex h-screen bg-[#1F4887]">
+    <div className="flex min-h-screen">
       <FacultySidebar />
-      <div className="flex-1 flex flex-col items-center justify-center">
-        <h1 className="text-white font-[sans-serif] -mt-52 text-3xl font-bold">
-          Application Forwarded successfully
-        </h1>
+      <div className="flex-grow flex items-center justify-center bg-gradient-to-r from-[#1F4887] to-[#329987] p-4 ml-64">
+        <div className="bg-white p-6 md:p-10 rounded-lg shadow-lg text-center w-full max-w-4xl mt-10">
+          <h1 className="text-[#1F4887] text-3xl md:text-4xl font-bold">
+            Application Forwarded Successfully
+          </h1>
+        </div>
       </div>
     </div>
   );
