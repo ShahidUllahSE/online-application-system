@@ -7,6 +7,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const auth = require('./middleware/auth');
+const path = require('path');
 
 const contactRoutes = require('./routes/contact');
 
@@ -15,6 +16,15 @@ const Credential = require('./models/Credential');
 const AdminCredential = require('./models/AdminCredential');
 const FacultyCredential = require('./models/FacultyCredential');
 const Role = require('./models/Role');
+
+
+
+
+
+
+
+
+
 
 // Import all new application schemas
 const ChairmanApplication = require('./models/ChairmanApplication');
@@ -57,6 +67,21 @@ mongoose.connect(process.env.MONGO_URI, {
     console.error('MongoDB connection error:', err);
     process.exit(1);
   });
+
+
+
+  app.use(express.static(path.join(__dirname, 'build')));
+
+  // Fallback route: Serve the React app for all other routes
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+
+
+
+
+
+
 
 app.use('/api/contact', contactRoutes);
 
