@@ -97,7 +97,7 @@ const ApplicationDetails2 = () => {
       let apiEndpoint = '';
       switch (username) {
         case 'chairman':
-          apiEndpoint = 'http://localhost:5000/api/chairman-applications';
+          apiEndpoint = 'https://online-application-backend.vercel.app/api/chairman-applications';
           break;
         case 'batch_advisor':
           apiEndpoint = 'http://localhost:5000/api/batch-advisor-applications';
