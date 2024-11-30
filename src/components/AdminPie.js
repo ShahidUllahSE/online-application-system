@@ -51,7 +51,7 @@ function AdminPie() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/application-counts');
+        const res = await axios.get('https://online-application-backend.vercel.app/api/application-counts');
         const counts = res.data;
 
         setData({
